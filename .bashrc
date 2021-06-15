@@ -231,9 +231,6 @@ function starwars () {
 	telnet towel.blinkenlights.nl
 }
 
-# News
-export IN_API_KEY="6e3bf155eb4b47a8ab90aaee29dfedfd"
-
 # Fortunes
 function wisecow() {
 	fortune "$@" | cowsay

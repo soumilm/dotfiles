@@ -216,8 +216,8 @@ function init () {
 
 alias edit='vim'
 alias less='vim -R'
-alias vimrc='vim ~/.vimrc'
-alias bashrc='vim ~/.bashrc'
+alias vimrc='vim ~/dotfiles/.vimrc'
+alias bashrc='vim ~/dotfiles/.bashrc'
 alias srcbash='source ~/.bashrc'
 
 alias brainy='rlwrap ~/Files/Scholastic/CMU/Classes/4\ -\ 20Spring/98-242/esolang-brainy/brainy.py'
@@ -243,9 +243,6 @@ function speakfortune() {
 	rm /tmp/fortune.txt
 	rm /tmp/test.wav
 }
-function updatefortune() {
-	strfile -c % /usr/share/games/fortunes/$1 /usr/share/games/fortunes/$1.dat;
-}
 function newfortune() {
 	sudo touch /usr/share/games/fortunes/$1
 	sudo touch /usr/share/games/fortunes/$1.dat
@@ -260,22 +257,30 @@ function Hello () {
 	fi
 }
 
-alias terrier='psql -h localhost -p 15721 -d noisepage'
-function terrier-generate-traces () {
-	ant generate-trace -Dpath=traces/$1.sql -Ddb-url=jdbc:postgresql://localhost/soumilm -Ddb-user=soumilm -Dpassword="" -Doutput-name=traces/$1.test
-}
-function terrier-test-traces () {
-	mkdir tmp
-	mv traces/* tmp
-	mv tmp/$1.test traces
-	./run_junit.py --query-mode=simple
-	mv tmp/* traces
-	rm -r tmp
+function koalas () {
+	grayscale=""
+	for arg in "$@"; do
+		if [[ "$arg" = "--grayscale" ]]
+		then
+			grayscale="?grayscale"
+		fi
+	done
+	seed=$(openssl rand -hex 12)
+	xdg-open "http://koalastothemax.com/?http://picsum.photos/seed/${seed}/512${grayscale}"
 }
 
 function compile () {
     ./bin/c0c $@
     gcc -no-pie -m64 $1.s ../runtime/run411.c
+}
+
+function splitpdf () {
+	if [[ "$1" = "-h" ]]
+	then
+		"splitpdf inputfile start end outputfile"
+	else
+		qpdf $1 --pages $1 $2-$3 -- $4
+	fi
 }
 
 if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then

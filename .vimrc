@@ -24,6 +24,7 @@ Plugin 'majutsushi/tagbar'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'Raimondi/delimitMate'
 Plugin 'sbdchd/neoformat'
+Plugin 'xuhdev/vim-latex-live-preview'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -80,16 +81,16 @@ set smartindent
 autocmd FileType sml setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
 autocmd FileType ml setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
 autocmd FileType tex setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
-autocmd FileType python setlocal expandtab tabstop=4 softtabstop=4 shiftwidth=4
+autocmd FileType python setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
 autocmd FileType text setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
 au BufRead,BufNewFile *.ml,*.mli,*.mll,*.mly setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
 au BufRead,BufNewFile *.c0,*.l1,*.l2,*.l3,*.l4,*.l5,*.l6 setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
 autocmd BufWritePre * %s/\s\+$//e
 
-set tabstop=4
-set noexpandtab
-set softtabstop=4
-set shiftwidth=4
+set tabstop=2
+set expandtab
+set softtabstop=2
+set shiftwidth=2
 
 "Searching
 set incsearch "Search as you type
@@ -316,6 +317,11 @@ autocmd FileType tex vnoremap <C-B> di\textbf{}<esc>hp
 autocmd FileType tex inoremap <C-B> \textbf{}<esc>i
 autocmd FileType tex vnoremap <C-J> di\textit{}<esc>hp
 autocmd FileType tex inoremap <C-J> \textit{}<esc>i
+"HTML:
+autocmd FileType html vnoremap <C-B> di<lt>strong><lt>/strong><esc>9hp
+autocmd FileType html inoremap <C-B> <lt>strong><lt>/strong><esc>8hi
+autocmd FileType html vnoremap <C-J> di<lt>em><lt>/em><esc>5hp
+autocmd FileType html inoremap <C-J> <lt>em><lt>/em><esc>4hi
 
 let s:opam_configuration = {}
 

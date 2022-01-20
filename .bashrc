@@ -159,6 +159,7 @@ function up() {
 
 export PATH=$PATH:~/Programs/cc0/bin
 export PATH=$PATH:~/Programs/sml/bin
+export PATH=$PATH:~/Programs/pandoc/bin
 export PATH=$PATH:~/.bash
 export PATH=$PATH:~/Programs/VASSAL
 export PATH=$PATH:/home/soumilm/Programs/flutter/bin
@@ -171,14 +172,14 @@ export UNAME=$(uname)
 alias sml='rlwrap sml'
 alias ocaml='rlwrap ocaml'
 alias smlnj='rlwrap sml'
-alias python='python3.7'
-alias python3='python3.7'
+alias python3='python3.9'
 alias coin='rlwrap coin'
 
 alias publishandrew="curl 'https://www.andrew.cmu.edu/cgi-bin/publish?FLAG=0&NAME=soumilm'"
 
 alias pls='sudo $(history -p !!)'
 alias please='sudo $(history -p !!)'
+alias yeahthat='thefuck !!'
 alias la='ls -d -R */**'
 alias cs='clear;ls'
 alias clr='clear'
@@ -198,11 +199,10 @@ alias :q='exit'
 function init () {
 	if [ $1 == "tex" ]
 	then
-		cp ~/Files/.templates/tex/preamble.tex .
 		cp ~/Files/.templates/tex/document.tex $2.tex
-	elif [ $1 == "preamble" ]
+	elif [ $1 == "style" ]
 	then
-		cp ~/Files/.templates/tex/preamble.tex .
+		cp ~/Files/.templates/tex/mystyle.sty ~/texmf/tex/latex/mystyle.sty
 	elif [ $1 == "beamer" ]
 	then
 		cp ~/Files/.templates/tex/beamer.tex $2.tex
@@ -215,7 +215,6 @@ function init () {
 }
 
 alias edit='vim'
-alias less='vim -R'
 alias vimrc='vim ~/dotfiles/.vimrc'
 alias bashrc='vim ~/dotfiles/.bashrc'
 alias srcbash='source ~/.bashrc'
@@ -233,7 +232,7 @@ function starwars () {
 
 # Fortunes
 function wisecow() {
-	fortune "$@" | cowsay
+	fortune "$@" | cowsay -n -W -1
 }
 function speakfortune() {
 	fortune "$@" > /tmp/fortune.txt

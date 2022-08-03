@@ -158,11 +158,9 @@ function up() {
 # All my aliases and exports
 
 export PATH=$PATH:~/Programs/cc0/bin
-export PATH=$PATH:~/Programs/sml/bin
+export PATH=$PATH:~/Downloads/sml/bin
 export PATH=$PATH:~/Programs/pandoc/bin
 export PATH=$PATH:~/.bash
-export PATH=$PATH:~/Programs/VASSAL
-export PATH=$PATH:/home/soumilm/Programs/flutter/bin
 export PATH=$PATH:/usr/games
 
 export TEXINPUTS=".:~/.latex:"
@@ -188,7 +186,9 @@ alias root='cd /'
 alias open='xdg-open'
 alias x='xdg-open'
 function xx () {
-	xdg-open *.$1
+	for f in *.$1; do
+    xdg-open $f
+  done
 }
 alias opendir='xdg-open .'
 alias diff='diff --color'
@@ -280,6 +280,14 @@ function splitpdf () {
 	else
 		qpdf $1 --pages $1 $2-$3 -- $4
 	fi
+}
+
+function cleantex () {
+  rm *.fls
+  rm *.out
+  rm *.fdb_latexmk
+  rm *.log
+  rm *.aux
 }
 
 if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then

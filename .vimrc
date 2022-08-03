@@ -81,7 +81,7 @@ set smartindent
 autocmd FileType sml setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
 autocmd FileType ml setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
 autocmd FileType tex setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
-autocmd FileType python setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
+autocmd FileType python setlocal expandtab tabstop=4 softtabstop=4 shiftwidth=4
 autocmd FileType text setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
 au BufRead,BufNewFile *.ml,*.mli,*.mll,*.mly setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
 au BufRead,BufNewFile *.c0,*.l1,*.l2,*.l3,*.l4,*.l5,*.l6 setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
@@ -148,6 +148,7 @@ hi SpellLocal cterm=underline
 "LaTeX only
 set nospell
 autocmd FileType tex,text,markdown set spell
+autocmd FileType html set spell
 "Replace last misspelled word with first suggestions
 inoremap <C-l>1 <c-g>u<Esc>[s1z=`]a<c-g>u
 inoremap <C-l><C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
@@ -280,10 +281,10 @@ autocmd Filetype vim let b:commentCommand='i"'    "Comment for vim filetypes
 autocmd Filetype vim let b:unCommentCommand='^x'  "un-Comment for vim filetypes
 autocmd Filetype tex let b:commentCommand='i%'    "Comment for '%' filetypes
 autocmd Filetype tex let b:unCommentCommand='^x'  "un-Comment for '%' filetypes
-autocmd Filetype sml nnoremap <expr> <C-_> (synIDattr(synID(line("."), col("."), 0), "name") =~ 'comment\c') ?
+autocmd Filetype sml,mlw nnoremap <expr> <C-_> (synIDattr(synID(line("."), col("."), 0), "name") =~ 'comment\c') ?
 			\ '<Esc>0xx$xx' :
 			\ '<Esc>0i(*<Esc>$a*)<Esc>'
-autocmd Filetype sml vnoremap <expr> <C-_> (synIDattr(synID(line("."), col("."), 0), "name") =~ 'comment\c') ?
+autocmd Filetype sml,mlw vnoremap <expr> <C-_> (synIDattr(synID(line("."), col("."), 0), "name") =~ 'comment\c') ?
 			\ '<Esc>`<xx`>xxgv' :
 			\ '<Esc>`<i(*<Esc>`>a*)<Esc>gv'
 
@@ -351,3 +352,4 @@ for tool in s:opam_packages
   endif
 endfor
 " ## end of OPAM user-setup addition for vim / base ## keep this line
+"

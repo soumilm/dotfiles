@@ -6,25 +6,23 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'lervag/vimtex'
 Plugin 'drewtempelmeyer/palenight.vim'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-Plugin 'JamshedVesuna/vim-markdown-preview'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'mhinz/vim-startify'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'mattesgroeger/vim-bookmarks'
 Plugin 'google/vim-searchindex'
-Plugin 'Conque-GDB'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'Raimondi/delimitMate'
 Plugin 'sbdchd/neoformat'
-Plugin 'xuhdev/vim-latex-live-preview'
+Plugin 'fatih/vim-go'
+Plugin 'dense-analysis/ale'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -76,12 +74,19 @@ set laststatus=2
 set nowrap
 set sidescroll=1
 
+"I really need to learn not to use these keys
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+
 "Indentation
 set smartindent
 autocmd FileType sml setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
 autocmd FileType ml setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
 autocmd FileType tex setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
 autocmd FileType python setlocal expandtab tabstop=4 softtabstop=4 shiftwidth=4
+autocmd FileType go setlocal noexpandtab tabstop=4 softtabstop=4 shiftwidth=4
 autocmd FileType text setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
 au BufRead,BufNewFile *.ml,*.mli,*.mll,*.mly setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
 au BufRead,BufNewFile *.c0,*.l1,*.l2,*.l3,*.l4,*.l5,*.l6 setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
@@ -100,8 +105,7 @@ set smartcase
 "Remove search highlight with Esc
 nnoremap <C-c> :nohlsearch<CR>
 " Visual mode pressing * or # searches for the current selection
-vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
-vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+vnoremap <silent> * y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 " Syntax highlighting for C0
 au BufRead,BufNewFile *.c0,*.l1,*.l2,*.l3,*.l4,*.l5,*.l6 setlocal syntax=c
@@ -112,6 +116,10 @@ scriptencoding utf-8
 "Move cursor past line end
 set virtualedit=onemore
 
+"Sets cursor shape to bar when in insert mode
+let &t_SI = "\e[5 q"
+let &t_EI = "\e[1 q"
+
 "Colorscheme
 set background=dark
 set t_Co=256
@@ -121,8 +129,6 @@ let g:lightline = { 'colorscheme': 'palenight' }
 let g:airline_theme = "palenight"
 "Use All colors
 set termguicolors
-
-highlight Normal ctermfg=grey ctermbg=darkblue
 
 hi clear SignColumn
 
@@ -165,18 +171,6 @@ let g:netrw_browse_split = 0
 let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
 let g:netrw_altv = 1
 
-"Default window splits
-set splitbelow
-
-"Set vertical window sizes
-command Small vertical resize 37
-command Mid vertical resize 75
-command Big vertical resize 113
-"Set horizontal window sizes
-command Short resize 10
-command Tall resize 25
-command MidH resize 20
-
 " ----- xolox/vim-easytags settings -----
 " Where to look for tags files
 set tags=./tags;,~/.vimtags
@@ -212,7 +206,7 @@ autocmd FileType sml set cc=80
 set wrap linebreak nolist
 
 "Use system clipboard for yank/paste
-set clipboard=unnamedplus
+set clipboard=unnamed
 nnoremap <leader>p p`[v`]=
 
 "Keep cursor in place for yank
@@ -232,8 +226,8 @@ vnoremap > >gv
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-]>"
-let g:UltiSnipsJumpBackwardTrigger="<c-[>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 " :UltiSnipsEdit splits window.
 let g:UltiSnipsEditSplit="vertical"
 
@@ -259,10 +253,6 @@ map [] k$][%?}<CR>
 
 "Automatch Braces
 inoremap {<CR> {<CR>}<Esc>ko
-
-"Terminal
-command Term terminal ++rows=10
-command BigTerm terminal
 
 "Block Comment/Uncomment
 nnoremap <expr> <C-_> (synIDattr(synID(line("."), col("."), 0), "name") =~ 'comment\c') ?
@@ -323,33 +313,3 @@ autocmd FileType html vnoremap <C-B> di<lt>strong><lt>/strong><esc>9hp
 autocmd FileType html inoremap <C-B> <lt>strong><lt>/strong><esc>8hi
 autocmd FileType html vnoremap <C-J> di<lt>em><lt>/em><esc>5hp
 autocmd FileType html inoremap <C-J> <lt>em><lt>/em><esc>4hi
-
-let s:opam_configuration = {}
-
-function! OpamConfOcpIndent()
-  execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
-endfunction
-let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
-
-function! OpamConfOcpIndex()
-  execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
-endfunction
-let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
-
-function! OpamConfMerlin()
-  let l:dir = s:opam_share_dir . "/merlin/vim"
-  execute "set rtp+=" . l:dir
-endfunction
-let s:opam_configuration['merlin'] = function('OpamConfMerlin')
-
-let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
-let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
-let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
-for tool in s:opam_packages
-  " Respect package order (merlin should be after ocp-index)
-  if count(s:opam_available_tools, tool) > 0
-    call s:opam_configuration[tool]()
-  endif
-endfor
-" ## end of OPAM user-setup addition for vim / base ## keep this line
-"

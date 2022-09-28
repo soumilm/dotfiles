@@ -109,11 +109,11 @@ function gitbranch() {
 	then
 		branch=""
 	else
-		branch="[$str]"
+		branch=" [$str]"
 	fi
 	echo "$branch"
 }
-export PS1='$(printf "%*s\r%s" $(( COLUMNS+21 )) "\[\e[01;38;5;198m\]$(gitbranch)\[\e[0m\]" "\[\e[01;38;5;198m\](\@)\[\e[0m\] \[\e[01;38;5;46m\]\h\[\e[0m\]:\[\e[01;38;5;33m\]\W\[\e[0m\] ")'
+export PS1='$(printf "%s%s \n$ " "\[\e[01;38;5;198m\](\@)\[\e[0m\] \[\e[01;38;5;46m\]\h\[\e[0m\]:\[\e[01;38;5;33m\]\W\[\e[0m\]" "\[\e[01;38;5;198m\]$(gitbranch)\[\e[0m\]")'
 
 function colors() {
     iter=16
@@ -147,7 +147,6 @@ function colors() {
     done
 }
 
-echo -e -n "\x1b[\x33 q" # changes to blinking underline
 bind '"\e[1;5D" backward-word'
 bind '"\e[1;5C" forward-word'
 
@@ -157,9 +156,6 @@ function up() {
 
 # All my aliases and exports
 
-export PATH=$PATH:~/Programs/cc0/bin
-export PATH=$PATH:~/Downloads/sml/bin
-export PATH=$PATH:~/Programs/pandoc/bin
 export PATH=$PATH:~/.bash
 export PATH=$PATH:/usr/games
 
@@ -183,7 +179,6 @@ alias cs='clear;ls'
 alias clr='clear'
 alias home='cd ~'
 alias root='cd /'
-alias open='xdg-open'
 alias x='xdg-open'
 function xx () {
 	for f in *.$1; do
@@ -218,8 +213,6 @@ alias edit='vim'
 alias vimrc='vim ~/dotfiles/.vimrc'
 alias bashrc='vim ~/dotfiles/.bashrc'
 alias srcbash='source ~/.bashrc'
-
-alias brainy='rlwrap ~/Files/Scholastic/CMU/Classes/4\ -\ 20Spring/98-242/esolang-brainy/brainy.py'
 
 function pdfrem () {
 	exiftool -all= -r *.pdf
@@ -294,5 +287,9 @@ if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
     tmux attach -t default || tmux new -s default
 fi
 
-# opam configuration
-test -r /home/soumilm/.opam/opam-init/init.sh && . /home/soumilm/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
+alias gst='git status'
+alias ga='git add'
+alias gd='git diff'
+alias commits='git log --oneline | head'
+
+alias sl='ls'

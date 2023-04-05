@@ -169,23 +169,12 @@ alias smlnj='rlwrap sml'
 alias python3='python3.9'
 alias coin='rlwrap coin'
 
-alias publishandrew="curl 'https://www.andrew.cmu.edu/cgi-bin/publish?FLAG=0&NAME=soumilm'"
-
 alias pls='sudo $(history -p !!)'
 alias please='sudo $(history -p !!)'
 alias yeahthat='thefuck !!'
 alias la='ls -d -R */**'
-alias cs='clear;ls'
 alias clr='clear'
-alias home='cd ~'
 alias root='cd /'
-alias x='xdg-open'
-function xx () {
-	for f in *.$1; do
-    xdg-open $f
-  done
-}
-alias opendir='xdg-open .'
 alias diff='diff --color'
 alias units='units -v -1'
 
@@ -214,15 +203,6 @@ alias vimrc='vim ~/dotfiles/.vimrc'
 alias bashrc='vim ~/dotfiles/.bashrc'
 alias srcbash='source ~/.bashrc'
 
-function pdfrem () {
-	exiftool -all= -r *.pdf
-	rm *.pdf_original
-}
-
-function starwars () {
-	telnet towel.blinkenlights.nl
-}
-
 # Fortunes
 function wisecow() {
 	fortune "$@" | cowsay -n -W -1
@@ -249,32 +229,6 @@ function Hello () {
 	fi
 }
 
-function koalas () {
-	grayscale=""
-	for arg in "$@"; do
-		if [[ "$arg" = "--grayscale" ]]
-		then
-			grayscale="?grayscale"
-		fi
-	done
-	seed=$(openssl rand -hex 12)
-	xdg-open "http://koalastothemax.com/?http://picsum.photos/seed/${seed}/512${grayscale}"
-}
-
-function compile () {
-    ./bin/c0c $@
-    gcc -no-pie -m64 $1.s ../runtime/run411.c
-}
-
-function splitpdf () {
-	if [[ "$1" = "-h" ]]
-	then
-		"splitpdf inputfile start end outputfile"
-	else
-		qpdf $1 --pages $1 $2-$3 -- $4
-	fi
-}
-
 function cleantex () {
   rm *.fls
   rm *.out
@@ -290,6 +244,25 @@ fi
 alias gst='git status'
 alias ga='git add'
 alias gd='git diff'
+alias gds='git diff --staged'
 alias commits='git log --oneline | head'
+alias hash='git rev-parse HEAD | pbcopy'
 
 alias sl='ls'
+
+case "$(uname -sr)" in
+   Darwin*)
+     source "$HOME/dotfiles/.work_bashrc" # this file intentionally not checked in
+     alias x='open'
+     alias opendir='open .'
+     ;;
+
+   Linux*)
+     alias x='xdg-open'
+     alias opendir='xdg-open .'
+     ;;
+
+   *)
+     echo 'OS unknown'
+     ;;
+esac

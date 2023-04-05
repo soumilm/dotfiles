@@ -23,6 +23,8 @@ Plugin 'Raimondi/delimitMate'
 Plugin 'sbdchd/neoformat'
 Plugin 'fatih/vim-go'
 Plugin 'dense-analysis/ale'
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -73,6 +75,9 @@ set laststatus=2
 "No Wrapped Lines and Smooth Horizontal Scrolling
 set nowrap
 set sidescroll=1
+
+"Minimum lines to keep above and below the cursor
+set scrolloff=5
 
 "I really need to learn not to use these keys
 noremap <Up> <NOP>
@@ -214,7 +219,13 @@ autocmd FileType sml set cc=80
 set wrap linebreak nolist
 
 "Use system clipboard for yank/paste
-set clipboard=unnamedplus
+if system('uname -s') == "Darwin\n"
+  "OSX
+  set clipboard=unnamed
+else
+  "Linux
+  set clipboard=unnamedplus
+endif
 nnoremap <leader>p p`[v`]=
 
 "Keep cursor in place for yank
@@ -254,10 +265,10 @@ augroup END
 "Insert a single character from normal mode
 nnoremap <Space> i<Space><Esc>r
 
-map [[ ?{<CR>w99[{
-map ][ /}<CR>b99]}
-map ]] j0[[%/{<CR>
-map [] k$][%?}<CR>
+noremap [[ ?{<CR>w99[{
+noremap ][ /}<CR>b99]}
+noremap ]] j0[[%/{<CR>
+noremap [] k$][%?}<CR>
 
 "Automatch Braces
 inoremap {<CR> {<CR>}<Esc>ko
@@ -321,3 +332,8 @@ autocmd FileType html vnoremap <C-B> di<lt>strong><lt>/strong><esc>9hp
 autocmd FileType html inoremap <C-B> <lt>strong><lt>/strong><esc>8hi
 autocmd FileType html vnoremap <C-J> di<lt>em><lt>/em><esc>5hp
 autocmd FileType html inoremap <C-J> <lt>em><lt>/em><esc>4hi
+
+if system('uname -s') == "Darwin\n"
+  "OSX
+  source ~/dotfiles/.work_vimrc
+endif

@@ -164,10 +164,10 @@ hi SpellRare cterm=underline
 hi SpellCap cterm=underline
 "Word spelled like the British
 hi SpellLocal cterm=underline
-"LaTeX only
+"Certain file types only
 set nospell
-autocmd FileType tex,text,markdown set spell
-autocmd FileType html set spell
+autocmd FileType tex,text,markdown,html set spell
+autocmd FileType tex,text,markdown,html syntax spell toplevel
 "Replace last misspelled word with first suggestions
 inoremap <C-l>1 <c-g>u<Esc>[s1z=`]a<c-g>u
 inoremap <C-l><C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
@@ -288,8 +288,8 @@ autocmd Filetype python let b:commentCommand='i#'    "Comment for '#' filetypes
 autocmd Filetype python let b:unCommentCommand='^x'  "un-Comment for '#' filetypes
 autocmd Filetype vim let b:commentCommand='i"'    "Comment for vim filetypes
 autocmd Filetype vim let b:unCommentCommand='^x'  "un-Comment for vim filetypes
-autocmd Filetype tex let b:commentCommand='i%'    "Comment for '%' filetypes
-autocmd Filetype tex let b:unCommentCommand='^x'  "un-Comment for '%' filetypes
+autocmd Filetype tex let b:commentCommand='i% '    "Comment for '%' filetypes
+autocmd Filetype tex let b:unCommentCommand='^xx'  "un-Comment for '%' filetypes
 autocmd Filetype sml,mlw nnoremap <expr> <C-_> (synIDattr(synID(line("."), col("."), 0), "name") =~ 'comment\c') ?
 			\ '<Esc>0xx$xx' :
 			\ '<Esc>0i(*<Esc>$a*)<Esc>'

@@ -166,8 +166,9 @@ export UNAME=$(uname)
 alias sml='rlwrap sml'
 alias ocaml='rlwrap ocaml'
 alias smlnj='rlwrap sml'
-alias python3='python3.9'
 alias coin='rlwrap coin'
+alias python='python3'
+alias pip='pip3.10'
 
 alias pls='sudo $(history -p !!)'
 alias please='sudo $(history -p !!)'
@@ -246,7 +247,7 @@ alias ga='git add'
 alias gd='git diff'
 alias gds='git diff --staged'
 alias commits='git log --oneline | head'
-alias hash='git rev-parse HEAD | pbcopy'
+alias hash='git rev-parse HEAD'
 
 alias sl='ls'
 

@@ -166,8 +166,8 @@ hi SpellCap cterm=underline
 hi SpellLocal cterm=underline
 "Certain file types only
 set nospell
-autocmd FileType tex,text,markdown,html set spell
-autocmd FileType tex,text,markdown,html syntax spell toplevel
+autocmd FileType tex,text,markdown,html,json set spell
+autocmd FileType tex,text,markdown,html,json syntax spell toplevel
 "Replace last misspelled word with first suggestions
 inoremap <C-l>1 <c-g>u<Esc>[s1z=`]a<c-g>u
 inoremap <C-l><C-l> <c-g>u<Esc>[s1z=`]a<c-g>u

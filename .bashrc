@@ -261,6 +261,8 @@ case "$(uname -sr)" in
    Linux*)
      alias x='xdg-open'
      alias opendir='xdg-open .'
+     alias pbcopy='xclip -selection clipboard'
+     alias pbpaste='xclip -selection clipboard -o'
      ;;
 
    *)

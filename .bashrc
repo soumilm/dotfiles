@@ -243,9 +243,9 @@ alias ga='git num add'
 alias gd='git num diff'
 alias gds='git num diff --staged'
 alias grst='git num restore'
-alias what='git convert'
+alias what='git num convert'
 function gv () {
-  vim "$(git convert "$1")"
+  vim "$(git num convert "$1")"
 }
 alias commits='git log --oneline | head'
 alias hash='git rev-parse HEAD'

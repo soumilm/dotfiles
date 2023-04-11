@@ -18,7 +18,6 @@ Plugin 'google/vim-searchindex'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
-Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'Raimondi/delimitMate'
 Plugin 'sbdchd/neoformat'
 Plugin 'fatih/vim-go'
@@ -251,6 +250,8 @@ let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 " :UltiSnipsEdit splits window.
 let g:UltiSnipsEditSplit="vertical"
 
+let g:startify_change_to_dir = 0
+
 let g:airline#extensions#hunks#non_zero_only = 1
 
 " ----- Raimondi/delimitMate settings -----
@@ -328,7 +329,7 @@ autocmd FileType tex vnoremap <C-B> di\textbf{}<esc>hp
 autocmd FileType tex inoremap <C-B> \textbf{}<esc>i
 autocmd FileType tex vnoremap <C-J> di\textit{}<esc>hp
 autocmd FileType tex inoremap <C-J> \textit{}<esc>i
-"HTML:
+"HTML :
 autocmd FileType html vnoremap <C-B> di<lt>strong><lt>/strong><esc>9hp
 autocmd FileType html inoremap <C-B> <lt>strong><lt>/strong><esc>8hi
 autocmd FileType html vnoremap <C-J> di<lt>em><lt>/em><esc>5hp

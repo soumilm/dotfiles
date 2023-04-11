@@ -103,6 +103,7 @@ autocmd FileType go setlocal noexpandtab tabstop=4 softtabstop=4 shiftwidth=4
 autocmd FileType text setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
 au BufRead,BufNewFile *.ml,*.mli,*.mll,*.mly setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
 au BufRead,BufNewFile *.c0,*.l1,*.l2,*.l3,*.l4,*.l5,*.l6 setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
+"Delete trailing whitespace in all lines
 autocmd BufWritePre * %s/\s\+$//e
 
 set tabstop=2

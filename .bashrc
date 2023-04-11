@@ -96,8 +96,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-git config --global credential.helper 'cache --timeout=3600'
-
 bind 'set completion-ignore-case on'
 
 LS_COLORS=$LS_COLORS:'ln=1;32:ow=1;34:' ; export LS_COLORS
@@ -240,10 +238,15 @@ if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
     tmux attach -t default || tmux new -s default
 fi
 
-alias gst='git status'
-alias ga='git add'
-alias gd='git diff'
-alias gds='git diff --staged'
+alias gst='git num'
+alias ga='git num add'
+alias gd='git num diff'
+alias gds='git num diff --staged'
+alias grst='git restore'
+alias what='git convert'
+function gv () {
+  vim "$(git convert "$1")"
+}
 alias commits='git log --oneline | head'
 alias hash='git rev-parse HEAD'
 

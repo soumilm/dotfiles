@@ -242,7 +242,7 @@ alias gst='git num'
 alias ga='git num add'
 alias gd='git num diff'
 alias gds='git num diff --staged'
-alias grst='git restore'
+alias grst='git num restore'
 alias what='git convert'
 function gv () {
   vim "$(git convert "$1")"

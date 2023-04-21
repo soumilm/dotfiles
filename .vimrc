@@ -6,24 +6,26 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'drewtempelmeyer/palenight.vim'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'mhinz/vim-startify'
-Plugin 'vim-syntastic/syntastic'
-Plugin 'mattesgroeger/vim-bookmarks'
-Plugin 'google/vim-searchindex'
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-easytags'
-Plugin 'majutsushi/tagbar'
+
 Plugin 'Raimondi/delimitMate'
-Plugin 'sbdchd/neoformat'
-Plugin 'fatih/vim-go'
+Plugin 'SirVer/ultisnips'
+Plugin 'airblade/vim-gitgutter'
 Plugin 'dense-analysis/ale'
+Plugin 'drewtempelmeyer/palenight.vim'
+Plugin 'fatih/vim-go'
+Plugin 'google/vim-searchindex'
+Plugin 'honza/vim-snippets'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'mattesgroeger/vim-bookmarks'
+Plugin 'mhinz/vim-startify'
+Plugin 'sbdchd/neoformat'
+Plugin 'tpope/vim-fugitive'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'xolox/vim-easytags'
+Plugin 'xolox/vim-misc'
+Plugin 'yegappan/mru'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -243,6 +245,12 @@ noremap gP P
 vnoremap < <gv
 vnoremap > >gv
 
+"Split vertically/horizontally
+set splitright
+set splitbelow
+nnoremap ,v <C-w>v
+nnoremap ,h <C-w>s
+
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -251,6 +259,9 @@ let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 let g:UltiSnipsEditSplit="vertical"
 
 let g:startify_change_to_dir = 0
+let g:startify_bookmarks = [
+            \ { 'c': '~/.vimrc' },
+            \ ]
 
 let g:airline#extensions#hunks#non_zero_only = 1
 

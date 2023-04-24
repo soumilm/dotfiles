@@ -76,15 +76,6 @@ alias l='ls -CF'
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -112,38 +103,6 @@ function gitbranch() {
 	echo "$branch"
 }
 export PS1='$(printf "%s%s \n$ " "\[\e[01;38;5;198m\](\@)\[\e[0m\] \[\e[01;38;5;46m\]\h\[\e[0m\]:\[\e[01;38;5;33m\]\W\[\e[0m\]" "\[\e[01;38;5;198m\]$(gitbranch)\[\e[0m\]")'
-
-function colors() {
-    iter=16
-    while [ $iter -lt 52 ]
-    do
-        second=$[$iter+36]
-        third=$[$second+36]
-        four=$[$third+36]
-        five=$[$four+36]
-        six=$[$five+36]
-        seven=$[$six+36]
-        if [ $seven -gt 250 ];then seven=$[$seven-251]; fi
-
-        echo -en "\033[38;5;$(echo $iter)m█ "
-        printf "%03d" $iter
-        echo -en "   \033[38;5;$(echo $second)m█ "
-        printf "%03d" $second
-        echo -en "   \033[38;5;$(echo $third)m█ "
-        printf "%03d" $third
-        echo -en "   \033[38;5;$(echo $four)m█ "
-        printf "%03d" $four
-        echo -en "   \033[38;5;$(echo $five)m█ "
-        printf "%03d" $five
-        echo -en "   \033[38;5;$(echo $six)m█ "
-        printf "%03d" $six
-        echo -en "   \033[38;5;$(echo $seven)m█ "
-        printf "%03d" $seven
-
-        iter=$[$iter+1]
-        printf '\r\n'
-    done
-}
 
 bind '"\e[1;5D" backward-word'
 bind '"\e[1;5C" forward-word'
@@ -177,46 +136,15 @@ alias units='units -v -1'
 
 alias :q='exit'
 
-function init () {
-	if [ $1 == "tex" ]
-	then
-		cp ~/Files/.templates/tex/document.tex $2.tex
-	elif [ $1 == "style" ]
-	then
-		cp ~/Files/.templates/tex/mystyle.sty ~/texmf/tex/latex/mystyle.sty
-	elif [ $1 == "beamer" ]
-	then
-		cp ~/Files/.templates/tex/beamer.tex $2.tex
-	elif [ $1 == "cheatsheet" ]
-	then
-		cp ~/Files/.templates/tex/cheatsheet.tex $2.tex
-	else
-		echo "Template type is invalid"
-	fi
-}
-
 alias edit='vim'
 alias vimrc='vim ~/dotfiles/.vimrc'
 alias bashrc='vim ~/dotfiles/.bashrc'
 alias srcbash='source ~/.bashrc'
+alias dotfiles='cd ~/dotfiles'
 
 # Fortunes
 function wisecow() {
 	fortune "$@" | cowsay -n -W -1
-}
-function speakfortune() {
-	fortune "$@" > /tmp/fortune.txt
-	cat /tmp/fortune.txt | pico2wave -w=/tmp/test.wav
-	cat /tmp/fortune.txt | cowsay
-	aplay /tmp/test.wav
-	rm /tmp/fortune.txt
-	rm /tmp/test.wav
-}
-function newfortune() {
-	sudo touch /usr/share/games/fortunes/$1
-	sudo touch /usr/share/games/fortunes/$1.dat
-	sudo chown soumilm /usr/share/games/fortunes/$1*
-	sudo chgrp soumilm /usr/share/games/fortunes/$1*
 }
 wisecow
 
@@ -227,11 +155,11 @@ function Hello () {
 }
 
 function cleantex () {
-  rm *.fls
-  rm *.out
-  rm *.fdb_latexmk
-  rm *.log
-  rm *.aux
+  rm -- *.fls
+  rm -- *.out
+  rm -- *.fdb_latexmk
+  rm -- *.log
+  rm -- *.aux
 }
 
 if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
@@ -264,6 +192,12 @@ case "$(uname -sr)" in
      alias opendir='xdg-open .'
      alias pbcopy='xclip -selection clipboard'
      alias pbpaste='xclip -selection clipboard -o'
+     function newfortune() {
+     	 sudo touch /usr/share/games/fortunes/$1
+     	 sudo touch /usr/share/games/fortunes/$1.dat
+     	 sudo chown soumilm /usr/share/games/fortunes/$1*
+     	 sudo chgrp soumilm /usr/share/games/fortunes/$1*
+     }
      ;;
 
    *)

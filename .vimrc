@@ -201,12 +201,6 @@ let g:easytags_dynamic_files = 2
 let g:easytags_resolve_links = 1
 let g:easytags_suppress_ctags_warning = 1
 
-" ----- majutsushi/tagbar settings -----
-" Open/close tagbar with \b
-nmap <silent> <leader>b :TagbarToggle<CR>
-" Uncomment to open tagbar automatically whenever possible
-"autocmd BufEnter * nested :call tagbar#autoopen(0)
-
 "Command and Undo History
 set history=1000
 set undolevels=1000
@@ -256,6 +250,21 @@ set splitbelow
 nnoremap ,v <C-w>v
 nnoremap ,h <C-w>s
 
+let g:gitparsedbranchname = ' '
+function! UpdateGitBranch()
+  let l:string = system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+  let g:gitparsedbranchname = strlen(l:string) > 0?' ['.l:string.']':''
+endfunction
+
+autocmd BufEnter * :call UpdateGitBranch()
+set statusline=
+set statusline+=%#PmenuSel#
+set statusline+=\ %f\  "Comment to prevent vim from swallowing intentional trailing space
+set statusline+=%#LineNr#
+set statusline+=%{g:gitparsedbranchname}
+set statusline+=%=
+set statusline+=\ %l/%L\ (%c)\  "Comment to prevent vim from swallowing intentional trailing space
+
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -265,7 +274,7 @@ let g:UltiSnipsEditSplit="vertical"
 
 let g:startify_change_to_dir = 0
 let g:startify_bookmarks = [
-            \ { 'c': '~/.vimrc' },
+            \ { 'v': '~/.vimrc' },
             \ ]
 
 let g:airline#extensions#hunks#non_zero_only = 1

@@ -72,6 +72,33 @@ fi
 alias ll='ls -alF'
 alias l='ls -CF'
 
+case "$(uname -sr)" in
+   Darwin*)
+     source "$HOME/dotfiles/.work_bashrc" # this file intentionally not checked in
+     alias x='open'
+     alias opendir='open .'
+     export FORTUNES="/opt/homebrew/Cellar/fortune/9708/share/games/fortunes"
+     ;;
+
+   Linux*)
+     alias x='xdg-open'
+     alias opendir='xdg-open .'
+     alias pbcopy='xclip -selection clipboard'
+     alias pbpaste='xclip -selection clipboard -o'
+     export FORTUNES="/use/share/games/fortunes"
+     function newfortune() {
+       sudo touch $FORTUNES/$1
+       sudo touch $FORTUNES/$1.dat
+       sudo chown soumilm $FORTUNES/$1*
+       sudo chgrp soumilm $FORTUNES/$1*
+     }
+     ;;
+
+   *)
+     echo 'OS unknown'
+     ;;
+esac
+
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -165,7 +192,6 @@ if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
     tmux attach -t default || tmux new -s default
 fi
 
-alias gst='git num'
 alias ga='git num add'
 alias gd='git num diff'
 alias gds='git num diff --staged'
@@ -174,34 +200,26 @@ alias what='git num convert'
 function gv () {
   vim "$(git num convert "$1")"
 }
+function gc () {
+  for ((i = 1; i <= $1; i++))
+  do
+    export "f${i}=$(what ${i})"
+  done
+}
+function compute-aliases () {
+  wrapped=$(git num | grep -oE "\[[0-9]*\]" -A 0 | tail -1)
+  if [ -n "$wrapped" ]
+  then
+    wrapped=${wrapped#"["}
+    wrapped=${wrapped%"]"}
+    gc "$wrapped"
+  fi
+}
+function gst () {
+  git num
+  compute-aliases
+}
 alias commits='git log --oneline | head'
 alias hash='git rev-parse HEAD'
 
 alias sl='ls'
-
-case "$(uname -sr)" in
-   Darwin*)
-     source "$HOME/dotfiles/.work_bashrc" # this file intentionally not checked in
-     alias x='open'
-     alias opendir='open .'
-     export FORTUNES="/opt/homebrew/Cellar/fortune/9708/share/games/fortunes"
-     ;;
-
-   Linux*)
-     alias x='xdg-open'
-     alias opendir='xdg-open .'
-     alias pbcopy='xclip -selection clipboard'
-     alias pbpaste='xclip -selection clipboard -o'
-     export FORTUNES="/use/share/games/fortunes"
-     function newfortune() {
-       sudo touch $FORTUNES/$1
-       sudo touch $FORTUNES/$1.dat
-       sudo chown soumilm $FORTUNES/$1*
-       sudo chgrp soumilm $FORTUNES/$1*
-     }
-     ;;
-
-   *)
-     echo 'OS unknown'
-     ;;
-esac

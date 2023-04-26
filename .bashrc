@@ -142,7 +142,6 @@ alias bashrc='vim ~/dotfiles/.bashrc'
 alias srcbash='source ~/.bashrc'
 alias dotfiles='cd ~/dotfiles'
 
-# Fortunes
 function wisecow() {
 	fortune "$@" | cowsay -n -W -1
 }
@@ -185,6 +184,7 @@ case "$(uname -sr)" in
      source "$HOME/dotfiles/.work_bashrc" # this file intentionally not checked in
      alias x='open'
      alias opendir='open .'
+     export FORTUNES="/opt/homebrew/Cellar/fortune/9708/share/games/fortunes"
      ;;
 
    Linux*)
@@ -192,11 +192,12 @@ case "$(uname -sr)" in
      alias opendir='xdg-open .'
      alias pbcopy='xclip -selection clipboard'
      alias pbpaste='xclip -selection clipboard -o'
+     export FORTUNES="/use/share/games/fortunes"
      function newfortune() {
-     	 sudo touch /usr/share/games/fortunes/$1
-     	 sudo touch /usr/share/games/fortunes/$1.dat
-     	 sudo chown soumilm /usr/share/games/fortunes/$1*
-     	 sudo chgrp soumilm /usr/share/games/fortunes/$1*
+       sudo touch $FORTUNES/$1
+       sudo touch $FORTUNES/$1.dat
+       sudo chown soumilm $FORTUNES/$1*
+       sudo chgrp soumilm $FORTUNES/$1*
      }
      ;;
 

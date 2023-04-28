@@ -163,7 +163,7 @@ alias units='units -v -1'
 
 alias :q='exit'
 
-alias edit='vim'
+alias vim='nvim'
 alias vimrc='vim ~/dotfiles/.vimrc'
 alias bashrc='vim ~/dotfiles/.bashrc'
 alias srcbash='source ~/.bashrc'

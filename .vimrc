@@ -43,7 +43,6 @@ filetype plugin indent on    " required
 "Function Keys Used
 " F2 - Used to toggle show whitespace
 " F8 - Used to toggle colorcolumn
-
 " Ensure that we are in modern vim mode, not backwards-compatible vi mode
 set nocompatible
 set backspace=indent,eol,start
@@ -220,13 +219,7 @@ autocmd FileType sml set cc=80
 set wrap linebreak nolist
 
 "Use system clipboard for yank/paste
-if system('uname -s') == "Darwin\n"
-  "OSX
-  set clipboard=unnamed
-else
-  "Linux
-  set clipboard=unnamedplus
-endif
+set clipboard=unnamedplus
 nnoremap <leader>p p`[v`]=
 
 "Keep cursor in place for yank

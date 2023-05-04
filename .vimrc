@@ -163,13 +163,13 @@ set spelllang=en_us
 set spellfile=~/.vim/spell/en.utf-8.add
 for item in ['Bad','Cap','Local','Rare']| exe "hi clear Spell".item| endfor
 "Misspelled words
-hi SpellBad cterm=underline
+hi SpellBad cterm=underline gui=undercurl
 "Rare words
-hi SpellRare cterm=underline
+hi SpellRare cterm=underline gui=undercurl
 "Word not capitalized
-hi SpellCap cterm=underline
+hi SpellCap cterm=underline gui=undercurl
 "Word spelled like the British
-hi SpellLocal cterm=underline
+hi SpellLocal cterm=underline gui=undercurl
 "Certain file types only
 set nospell
 autocmd FileType tex,text,markdown,html,json set spell

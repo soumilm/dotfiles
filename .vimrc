@@ -317,6 +317,8 @@ autocmd Filetype sml,mlw vnoremap <expr> <C-_> (synIDattr(synID(line("."), col("
 			\ '<Esc>`<xx`>xxgv' :
 			\ '<Esc>`<i(*<Esc>`>a*)<Esc>gv'
 
+autocmd BufRead,BufNewFile *bashrc* set filetype=bash
+
 "Default Tex Flavor
 let g:tex_flavor = "latex"
 

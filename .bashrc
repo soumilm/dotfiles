@@ -217,7 +217,6 @@ function compute-aliases () {
 }
 function gst () {
   git num
-  compute-aliases
 }
 alias commits='git log --oneline | head'
 alias hash='git rev-parse HEAD'

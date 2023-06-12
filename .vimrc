@@ -270,6 +270,9 @@ let g:startify_bookmarks = [
             \ { 'v': '~/.vimrc' },
             \ ]
 
+nnoremap + :ALEGoToDefinition<CR>
+nnoremap - <C-o>
+
 let g:airline#extensions#hunks#non_zero_only = 1
 
 " ----- Raimondi/delimitMate settings -----

@@ -7,30 +7,24 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-Plugin 'Raimondi/delimitMate'
-Plugin 'SirVer/ultisnips'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'dense-analysis/ale'
-Plugin 'drewtempelmeyer/palenight.vim'
-Plugin 'eslint/eslint'
-Plugin 'fatih/vim-go'
-Plugin 'google/vim-searchindex'
-Plugin 'honza/vim-snippets'
-Plugin 'junegunn/fzf'
-Plugin 'junegunn/fzf.vim'
-Plugin 'leafgarland/typescript-vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'mattesgroeger/vim-bookmarks'
-Plugin 'maxmellon/vim-jsx-pretty'
-Plugin 'mhinz/vim-startify'
-Plugin 'pangloss/vim-javascript'
-Plugin 'sbdchd/neoformat'
-Plugin 'tpope/vim-fugitive'
-Plugin 'vim-syntastic/syntastic'
-Plugin 'xolox/vim-easytags'
-Plugin 'xolox/vim-misc'
-Plugin 'yegappan/mru'
+Plugin 'Raimondi/delimitMate'               " automatically close quotes, parens, etc
+Plugin 'SirVer/ultisnips'                   " configurable tab-completed ultisnips
+Plugin 'airblade/vim-gitgutter'             " show diff icons on the left
+Plugin 'christoomey/vim-tmux-navigator'     " Ctrl+{h,j,k,l} navigates consistently across tmux and vim
+Plugin 'dense-analysis/ale'                 " linter + autocomplete
+Plugin 'drewtempelmeyer/palenight.vim'      " color theme
+Plugin 'eslint/eslint'                      " JS linter
+Plugin 'fatih/vim-go'                       " golang miscellany
+Plugin 'google/vim-searchindex'             " add count and index when searching
+Plugin 'honza/vim-snippets'                 " adds snippets for UltiSnips
+Plugin 'junegunn/fzf'                       " fuzzy file finder logic
+Plugin 'junegunn/fzf.vim'                   " fzf support
+Plugin 'mattesgroeger/vim-bookmarks'        " bookmarks for lines
+Plugin 'mhinz/vim-startify'                 " fancy start screen for vim
+Plugin 'sbdchd/neoformat'                   " formatter
+Plugin 'tpope/vim-fugitive'                 " git commands
+Plugin 'tpope/vim-vinegar'                  " file navigation
+Plugin 'yegappan/mru'                       " see most recently used files
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -93,10 +87,6 @@ vnoremap <Up> <NOP>
 vnoremap <Down> <NOP>
 vnoremap <Left> <NOP>
 vnoremap <Right> <NOP>
-inoremap <Up> <NOP>
-inoremap <Down> <NOP>
-inoremap <Left> <NOP>
-inoremap <Right> <NOP>
 
 "Indentation
 set smartindent
@@ -271,7 +261,8 @@ let g:startify_bookmarks = [
             \ ]
 
 nnoremap + :ALEGoToDefinition<CR>
-nnoremap - <C-o>
+let g:ale_linters = {'python': ['pyright']}
+let g:ale_completion_enabled = 1
 
 let g:airline#extensions#hunks#non_zero_only = 1
 

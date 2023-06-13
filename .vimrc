@@ -19,6 +19,7 @@ Plugin 'google/vim-searchindex'             " add count and index when searching
 Plugin 'honza/vim-snippets'                 " adds snippets for UltiSnips
 Plugin 'junegunn/fzf'                       " fuzzy file finder logic
 Plugin 'junegunn/fzf.vim'                   " fzf support
+Plugin 'ludovicchabant/vim-gutentags'       " keep ctags up to date
 Plugin 'mattesgroeger/vim-bookmarks'        " bookmarks for lines
 Plugin 'mhinz/vim-startify'                 " fancy start screen for vim
 Plugin 'sbdchd/neoformat'                   " formatter

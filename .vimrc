@@ -327,11 +327,11 @@ let s:opam_share_dir = system("opam config var share")
 let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
 
 "Compile LaTeX on Ctrl+T
-autocmd FileType tex nmap <buffer> <C-T> :wa <bar> !latexmk -pdf %<CR>
+autocmd FileType tex nmap <buffer> <C-P> :wa <bar> !latexmk -pdf %<CR>
 "Compile markdown on Ctrl+T
-autocmd FileType markdown nmap <buffer> <C-T> :wa <bar> !pandoc -s -o %:r.pdf %<CR>
+autocmd FileType markdown nmap <buffer> <C-P> :wa <bar> !pandoc -s -o %:r.pdf %<CR>
 "Run python on Ctrl+T
-autocmd FileType python nmap <buffer> <C-T> :wa <bar> !python3 %<CR>
+autocmd FileType python nmap <buffer> <C-P> :wa <bar> !python3 %<CR>
 
 "Ctrl+B and Ctrl+J for bold/italics
 "Markdown :

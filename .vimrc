@@ -12,7 +12,6 @@ Plugin 'SirVer/ultisnips'                   " configurable tab-completed ultisni
 Plugin 'airblade/vim-gitgutter'             " show diff icons on the left
 Plugin 'christoomey/vim-tmux-navigator'     " Ctrl+{h,j,k,l} navigates consistently across tmux and vim
 Plugin 'dense-analysis/ale'                 " linter + autocomplete
-Plugin 'drewtempelmeyer/palenight.vim'      " color theme
 Plugin 'eslint/eslint'                      " JS linter
 Plugin 'fatih/vim-go'                       " golang miscellany
 Plugin 'google/vim-searchindex'             " add count and index when searching
@@ -26,6 +25,9 @@ Plugin 'sbdchd/neoformat'                   " formatter
 Plugin 'tpope/vim-fugitive'                 " git commands
 Plugin 'tpope/vim-vinegar'                  " file navigation
 Plugin 'yegappan/mru'                       " see most recently used files
+
+" Colorscheme plugin
+Plugin 'cocopon/iceberg.vim'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -133,10 +135,8 @@ let &t_EI = "\e[1 q"
 "Colorscheme
 set background=dark
 set t_Co=256
-colorscheme palenight
-let g:palenight_terminal_italics=1
-let g:lightline = { 'colorscheme': 'palenight' }
-let g:airline_theme = "palenight"
+colorscheme iceberg
+let g:lightline = { 'colorscheme': 'iceberg' }
 "Use All colors
 set termguicolors
 

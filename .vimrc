@@ -24,6 +24,7 @@ Plugin 'mhinz/vim-startify'                 " fancy start screen for vim
 Plugin 'sbdchd/neoformat'                   " formatter
 Plugin 'tpope/vim-fugitive'                 " git commands
 Plugin 'tpope/vim-vinegar'                  " file navigation
+Plugin 'vim-python/python-syntax'           " for f-strings
 Plugin 'yegappan/mru'                       " see most recently used files
 
 " Colorscheme plugin
@@ -265,6 +266,8 @@ nnoremap + :ALEGoToDefinition<CR>
 nnoremap ++ <C-O>
 let g:ale_linters = {'python': ['pyright']}
 let g:ale_completion_enabled = 1
+
+let g:python_highlight_all = 1
 
 let g:airline#extensions#hunks#non_zero_only = 1
 

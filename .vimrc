@@ -262,6 +262,7 @@ let g:startify_bookmarks = [
             \ ]
 
 nnoremap + :ALEGoToDefinition<CR>
+nnoremap ++ <C-O>
 let g:ale_linters = {'python': ['pyright']}
 let g:ale_completion_enabled = 1
 

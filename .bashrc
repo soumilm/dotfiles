@@ -147,6 +147,8 @@ export TEXINPUTS=".:~/.latex:"
 
 export UNAME=$(uname)
 
+export EDITOR=vim
+
 alias sml='rlwrap sml'
 alias ocaml='rlwrap ocaml'
 alias smlnj='rlwrap sml'
@@ -206,7 +208,7 @@ function gc () {
     export "f${i}=$(what ${i})"
   done
 }
-function compute-aliases () {
+function gf () {
   wrapped=$(git num | grep -oE "\[[0-9]*\]" -A 0 | tail -1)
   if [ -n "$wrapped" ]
   then

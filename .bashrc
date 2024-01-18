@@ -147,14 +147,13 @@ export TEXINPUTS=".:~/.latex:"
 
 export UNAME=$(uname)
 
-export EDITOR=vim
+export EDITOR=nvim
 
 alias sml='rlwrap sml'
 alias ocaml='rlwrap ocaml'
 alias smlnj='rlwrap sml'
 alias coin='rlwrap coin'
 alias python='python3'
-alias pip='pip3.10'
 
 alias pls='sudo $(history -p !!)'
 alias la='ls -a'
@@ -168,6 +167,7 @@ alias :q='exit'
 alias vim='nvim'
 alias vimrc='vim ~/dotfiles/.vimrc'
 alias bashrc='vim ~/dotfiles/.bashrc'
+alias vr='vim -R'
 alias srcbash='source ~/.bashrc'
 alias dotfiles='cd ~/dotfiles'
 

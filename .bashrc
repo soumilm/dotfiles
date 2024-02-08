@@ -81,6 +81,7 @@ case "$(uname -sr)" in
      ;;
 
    Linux*)
+     source /usr/share/doc/fzf/examples/key-bindings.bash
      alias x='xdg-open'
      alias opendir='xdg-open .'
      alias pbcopy='xclip -selection clipboard'
@@ -142,6 +143,7 @@ function up() {
 
 export PATH=$PATH:~/.bash
 export PATH=$PATH:/usr/games
+export PATH=$PATH:/usr/local/go/bin
 
 export TEXINPUTS=".:~/.latex:"
 

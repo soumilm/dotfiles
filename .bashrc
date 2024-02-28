@@ -158,7 +158,7 @@ alias coin='rlwrap coin'
 alias python='python3'
 
 alias pls='sudo $(history -p !!)'
-alias la='ls -a'
+alias la='ls -A'
 alias clr='clear'
 alias root='cd /'
 alias diff='diff --color'

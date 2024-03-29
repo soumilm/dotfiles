@@ -141,9 +141,9 @@ function up() {
 
 # All my aliases and exports
 
-export PATH=$PATH:~/.bash
-export PATH=$PATH:/usr/games
-export PATH=$PATH:/usr/local/go/bin
+export PATH=~/.bash:$PATH
+export PATH=/usr/games:$PATH
+export PATH=/usr/local/go/bin:$PATH
 
 export TEXINPUTS=".:~/.latex:"
 

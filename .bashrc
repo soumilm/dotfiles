@@ -72,34 +72,6 @@ fi
 alias ll='ls -alF'
 alias l='ls -CF'
 
-case "$(uname -sr)" in
-   Darwin*)
-     source "$HOME/dotfiles/.work_bashrc" # this file intentionally not checked in
-     alias x='open'
-     alias opendir='open .'
-     export FORTUNES="/opt/homebrew/Cellar/fortune/9708/share/games/fortunes"
-     ;;
-
-   Linux*)
-     source /usr/share/doc/fzf/examples/key-bindings.bash
-     alias x='xdg-open'
-     alias opendir='xdg-open .'
-     alias pbcopy='xclip -selection clipboard'
-     alias pbpaste='xclip -selection clipboard -o'
-     export FORTUNES="/use/share/games/fortunes"
-     function newfortune() {
-       sudo touch $FORTUNES/$1
-       sudo touch $FORTUNES/$1.dat
-       sudo chown soumilm $FORTUNES/$1*
-       sudo chgrp soumilm $FORTUNES/$1*
-     }
-     ;;
-
-   *)
-     echo 'OS unknown'
-     ;;
-esac
-
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -226,3 +198,31 @@ alias commits='git log --oneline | head'
 alias hash='git rev-parse HEAD'
 
 alias sl='ls'
+
+case "$(uname -sr)" in
+   Darwin*)
+     source "$HOME/dotfiles/.work_bashrc" # this file intentionally not checked in
+     alias x='open'
+     alias opendir='open .'
+     export FORTUNES="/opt/homebrew/Cellar/fortune/9708/share/games/fortunes"
+     ;;
+
+   Linux*)
+     source /usr/share/doc/fzf/examples/key-bindings.bash
+     alias x='xdg-open'
+     alias opendir='xdg-open .'
+     alias pbcopy='xclip -selection clipboard'
+     alias pbpaste='xclip -selection clipboard -o'
+     export FORTUNES="/use/share/games/fortunes"
+     function newfortune() {
+       sudo touch $FORTUNES/$1
+       sudo touch $FORTUNES/$1.dat
+       sudo chown soumilm $FORTUNES/$1*
+       sudo chgrp soumilm $FORTUNES/$1*
+     }
+     ;;
+
+   *)
+     echo 'OS unknown'
+     ;;
+esac

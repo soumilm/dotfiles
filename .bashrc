@@ -214,7 +214,7 @@ case "$(uname -sr)" in
      alias opendir='xdg-open .'
      alias pbcopy='xclip -selection clipboard'
      alias pbpaste='xclip -selection clipboard -o'
-     export FORTUNES="/use/share/games/fortunes"
+     export FORTUNES="/usr/share/games/fortunes"
      function newfortune() {
        sudo touch $FORTUNES/$1
        sudo touch $FORTUNES/$1.dat

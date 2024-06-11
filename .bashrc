@@ -128,6 +128,7 @@ alias ocaml='rlwrap ocaml'
 alias smlnj='rlwrap sml'
 alias coin='rlwrap coin'
 alias python='python3'
+alias cat='bat'
 
 alias pls='sudo $(history -p !!)'
 alias la='ls -A'

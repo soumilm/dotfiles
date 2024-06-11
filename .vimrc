@@ -16,11 +16,16 @@ Plugin 'eslint/eslint'                      " JS linter
 Plugin 'fatih/vim-go'                       " golang miscellany
 Plugin 'google/vim-searchindex'             " add count and index when searching
 Plugin 'honza/vim-snippets'                 " adds snippets for UltiSnips
+Plugin 'jparise/vim-graphql'                " GraphQL syntax
 Plugin 'junegunn/fzf'                       " fuzzy file finder logic
 Plugin 'junegunn/fzf.vim'                   " fzf support
-Plugin 'ludovicchabant/vim-gutentags'       " keep ctags up to date
+Plugin 'leafgarland/typescript-vim'         " TypeScript syntax
 Plugin 'mattesgroeger/vim-bookmarks'        " bookmarks for lines
+Plugin 'maxmellon/vim-jsx-pretty'           " JS and JSX syntax
+Plugin 'mbbill/undotree'
 Plugin 'mhinz/vim-startify'                 " fancy start screen for vim
+Plugin 'neovim/nvim-lspconfig'
+Plugin 'pangloss/vim-javascript'            " JavaScript support
 Plugin 'sbdchd/neoformat'                   " formatter
 Plugin 'tpope/vim-fugitive'                 " git commands
 Plugin 'tpope/vim-vinegar'                  " file navigation

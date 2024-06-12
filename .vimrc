@@ -22,11 +22,11 @@ Plugin 'junegunn/fzf.vim'                   " fzf support
 Plugin 'leafgarland/typescript-vim'         " TypeScript syntax
 Plugin 'mattesgroeger/vim-bookmarks'        " bookmarks for lines
 Plugin 'maxmellon/vim-jsx-pretty'           " JS and JSX syntax
-Plugin 'mbbill/undotree'
 Plugin 'mhinz/vim-startify'                 " fancy start screen for vim
 Plugin 'neovim/nvim-lspconfig'
 Plugin 'pangloss/vim-javascript'            " JavaScript support
 Plugin 'sbdchd/neoformat'                   " formatter
+Plugin 'simnalamburt/vim-mundo'
 Plugin 'tpope/vim-fugitive'                 " git commands
 Plugin 'tpope/vim-vinegar'                  " file navigation
 Plugin 'vim-python/python-syntax'           " for f-strings
@@ -204,6 +204,8 @@ set undolevels=1000
 "Persistent Undo
 set undofile
 set undodir=~/.vim/undodir
+
+nnoremap U :MundoToggle<CR>
 
 "Autocomplete Menu
 set wildmenu

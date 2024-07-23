@@ -17,7 +17,7 @@ Plugin 'fatih/vim-go'                       " golang miscellany
 Plugin 'google/vim-searchindex'             " add count and index when searching
 Plugin 'honza/vim-snippets'                 " adds snippets for UltiSnips
 Plugin 'jparise/vim-graphql'                " GraphQL syntax
-Plugin 'junegunn/fzf'                       " fuzzy file finder logic
+Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }                      " fuzzy file finder logic
 Plugin 'junegunn/fzf.vim'                   " fzf support
 Plugin 'leafgarland/typescript-vim'         " TypeScript syntax
 Plugin 'mattesgroeger/vim-bookmarks'        " bookmarks for lines
@@ -36,6 +36,8 @@ Plugin 'yegappan/mru'                       " see most recently used files
 Plugin 'cocopon/iceberg.vim'
 call vundle#end()            " required
 filetype plugin indent on    " required
+
+set rtp+=/opt/homebrew/opt/fzf
 
 "Marks Used
 " `y - Used for cursor placement after yank

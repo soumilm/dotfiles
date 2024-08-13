@@ -90,7 +90,6 @@ fi
 bind 'set completion-ignore-case on'
 
 LS_COLORS=$LS_COLORS:'ln=1;32:ow=1;34:' ; export LS_COLORS
-# export PS1="\[\e[01;38;5;198m\](\@)\[\e[0m\] \[\e[01;38;5;46m\]\h\[\e[0m\]:\[\e[01;38;5;33m\]\W\[\e[0m\] "
 
 function gitbranch() {
 	str="$(git branch 2>/dev/null | grep '^*' | sed s/..//)"
@@ -102,7 +101,7 @@ function gitbranch() {
 	fi
 	echo "$branch"
 }
-export PS1='$(printf "%s%s \n$ " "\[\e[01;38;5;198m\](\@)\[\e[0m\] \[\e[01;38;5;46m\]\h\[\e[0m\]:\[\e[01;38;5;33m\]\W\[\e[0m\]" "\[\e[01;38;5;198m\]$(gitbranch)\[\e[0m\]")'
+export PS1='$(printf "%s%s \n$ " "\[\e[38;5;198m\](\@)\[\e[0m\] \[\e[38;5;46m\]\h\[\e[0m\]:\[\e[38;5;33m\]\W\[\e[0m\]" "\[\e[38;5;198m\]$(gitbranch)\[\e[0m\]")'
 
 bind '"\e[1;5D" backward-word'
 bind '"\e[1;5C" forward-word'
@@ -134,7 +133,7 @@ alias pls='sudo $(history -p !!)'
 alias la='ls -A'
 alias clr='clear'
 alias diff='diff --color'
-alias jq='jq -C'
+alias less='less -r'
 alias units='units -v -1'
 
 alias :q='exit'
@@ -206,6 +205,7 @@ case "$(uname -sr)" in
      alias x='open'
      alias opendir='open .'
      export FORTUNES="/opt/homebrew/Cellar/fortune/9708/share/games/fortunes"
+     [[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
      ;;
 
    Linux*)

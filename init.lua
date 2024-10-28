@@ -45,13 +45,6 @@ set background=dark
 
 hi clear SignColumn
 
-let g:syntastic_error_symbol = '✘'
-let g:syntastic_warning_symbol = "▲"
-augroup mySyntastic
-  au!
-  au FileType tex let b:syntastic_mode = "passive"
-augroup END
-
 "Spellcheck
 set spelllang=en_us
 set spellfile=~/.vim/spell/en.utf-8.add
@@ -79,16 +72,6 @@ let g:netrw_winsize = 25
 let g:netrw_browse_split = 0
 let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
 let g:netrw_altv = 1
-
-" ----- xolox/vim-easytags settings -----
-" Where to look for tags files
-set tags=./tags;,~/.vimtags
-" Sensible defaults
-let g:easytags_events = ['BufReadPost', 'BufWritePost']
-let g:easytags_async = 1
-let g:easytags_dynamic_files = 2
-let g:easytags_resolve_links = 1
-let g:easytags_suppress_ctags_warning = 1
 
 "Command and Undo History
 set history=1000
@@ -119,10 +102,6 @@ noremap p gp<BS><Right>
 noremap P gP<BS><Right>
 noremap gp p
 noremap gP P
-
-"Keep highlighted text for indent shifting
-vnoremap < <gv
-vnoremap > >gv
 
 "Split vertically/horizontally
 set splitright
@@ -222,6 +201,9 @@ vim.wo.linebreak = true
 vim.wo.list = false
 
 opt.scrolloff = 5
+
+opt.ignorecase = true
+opt.smartcase = true
 
 require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'

@@ -7,32 +7,6 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-
-Plugin 'Raimondi/delimitMate'               " automatically close quotes, parens, etc
-Plugin 'SirVer/ultisnips'                   " configurable tab-completed ultisnips
-Plugin 'airblade/vim-gitgutter'             " show diff icons on the left
-Plugin 'christoomey/vim-tmux-navigator'     " Ctrl+{h,j,k,l} navigates consistently across tmux and vim
-Plugin 'dense-analysis/ale'                 " linter + autocomplete
-Plugin 'eslint/eslint'                      " JS linter
-Plugin 'fatih/vim-go'                       " golang miscellany
-Plugin 'google/vim-searchindex'             " add count and index when searching
-Plugin 'honza/vim-snippets'                 " adds snippets for UltiSnips
-Plugin 'jparise/vim-graphql'                " GraphQL syntax
-Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }                      " fuzzy file finder logic
-Plugin 'junegunn/fzf.vim'                   " fzf support
-Plugin 'leafgarland/typescript-vim'         " TypeScript syntax
-Plugin 'mattesgroeger/vim-bookmarks'        " bookmarks for lines
-Plugin 'maxmellon/vim-jsx-pretty'           " JS and JSX syntax
-Plugin 'mhinz/vim-startify'                 " fancy start screen for vim
-Plugin 'neovim/nvim-lspconfig'
-Plugin 'pangloss/vim-javascript'            " JavaScript support
-Plugin 'sbdchd/neoformat'                   " formatter
-Plugin 'simnalamburt/vim-mundo'
-Plugin 'tpope/vim-fugitive'                 " git commands
-Plugin 'tpope/vim-vinegar'                  " file navigation
-Plugin 'vim-python/python-syntax'           " for f-strings
-Plugin 'yegappan/mru'                       " see most recently used files
-
 " Colorscheme plugin
 Plugin 'cocopon/iceberg.vim'
 call vundle#end()            " required
@@ -363,3 +337,40 @@ if system('uname -s') == "Darwin\n"
   source ~/dotfiles/.work_vimrc
 endif
 ]])
+
+require('packer').startup(function(use)
+  use 'wbthomason/packer.nvim'
+
+  use 'Raimondi/delimitMate'               -- automatically close quotes, parens, etc
+  use 'SirVer/ultisnips'                   -- configurable tab-completed ultisnips
+  use 'airblade/vim-gitgutter'             -- show diff icons on the left
+  use 'christoomey/vim-tmux-navigator'     -- Ctrl+{h,j,k,l} navigates consistently across tmux and vim
+  use 'dense-analysis/ale'                 -- linter + autocomplete
+  use 'eslint/eslint'                      -- JS linter
+  use 'fatih/vim-go'                       -- golang miscellany
+  use 'google/vim-searchindex'             -- add count and index when searching
+  use 'honza/vim-snippets'                 -- adds snippets for UltiSnips
+  use 'jparise/vim-graphql'                -- GraphQL syntax
+  use 'leafgarland/typescript-vim'         -- TypeScript syntax
+  use 'mattesgroeger/vim-bookmarks'        -- bookmarks for lines
+  use 'maxmellon/vim-jsx-pretty'           -- JS and JSX syntax
+  use 'mhinz/vim-startify'                 -- fancy start screen for vim
+  use 'neovim/nvim-lspconfig'
+  use 'pangloss/vim-javascript'            -- JavaScript support
+  use 'sbdchd/neoformat'                   -- formatter
+  use 'simnalamburt/vim-mundo'
+  use 'tpope/vim-fugitive'                 -- git commands
+  use 'tpope/vim-vinegar'                  -- file navigation
+  use 'vim-python/python-syntax'           -- for f-strings
+  use 'yegappan/mru'                       -- see most recently used files
+  use { "ibhagwan/fzf-lua",
+    requires = { "nvim-tree/nvim-web-devicons" }, -- optional for icon support
+}
+end)
+
+require("fzf-lua").setup({
+  "fzf-vim",
+  files = {
+    git_icons = false,
+  },
+})

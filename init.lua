@@ -1,14 +1,4 @@
 vim.cmd([[
-"I really need to learn not to use these keys
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
-vnoremap <Up> <NOP>
-vnoremap <Down> <NOP>
-vnoremap <Left> <NOP>
-vnoremap <Right> <NOP>
-
 "Indentation
 set smartindent
 autocmd FileType tex setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
@@ -80,8 +70,6 @@ set undolevels=1000
 "Persistent Undo
 set undofile
 set undodir=~/.vim/undodir
-
-nnoremap U :MundoToggle<CR>
 
 "Autocomplete Menu
 set wildmenu
@@ -182,6 +170,14 @@ if system('uname -s') == "Darwin\n"
 endif
 ]])
 
+function Map(mode, lhs, rhs, opts)
+    local options = { noremap = true, silent = true }
+    if opts then
+        options = vim.tbl_extend("force", options, opts)
+    end
+    vim.keymap.set(mode, lhs, rhs, options)
+end
+
 local opt = vim.opt
 
 opt.backspace = {'indent', 'eol', 'start'}
@@ -269,3 +265,14 @@ vim.opt.termguicolors=true
 vim.o.background = "dark"
 vim.cmd.colorscheme "iceberg"
 vim.cmd("let g:lightline = { 'colorscheme': 'iceberg' }")
+
+Map('', '<Up>', '<NOP>')
+Map('', '<Down>', '<NOP>')
+Map('', '<Left>', '<NOP>')
+Map('', '<Right>', '<NOP>')
+Map('v', '<Up>', '<NOP>')
+Map('v', '<Down>', '<NOP>')
+Map('v', '<Left>', '<NOP>')
+Map('v', '<Right>', '<NOP>')
+
+Map('n', 'U', ':MundoToggle<CR>')

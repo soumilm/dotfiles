@@ -143,21 +143,6 @@ set splitbelow
 nnoremap ,v <C-w>v
 nnoremap ,h <C-w>s
 
-let g:gitparsedbranchname = ' '
-function! UpdateGitBranch()
-  let l:string = system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-  let g:gitparsedbranchname = strlen(l:string) > 0?' ['.l:string.']':''
-endfunction
-
-autocmd BufEnter * :call UpdateGitBranch()
-set statusline=
-set statusline+=%#PmenuSel#
-set statusline+=\ %f\  "Comment to prevent vim from swallowing intentional trailing space
-set statusline+=%#LineNr#
-set statusline+=%{g:gitparsedbranchname}
-set statusline+=%=
-set statusline+=\ %l/%L\ (%c)\  "Comment to prevent vim from swallowing intentional trailing space
-
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -288,6 +273,7 @@ require('packer').startup(function(use)
   use 'SirVer/ultisnips'                   -- configurable tab-completed ultisnips
   use 'airblade/vim-gitgutter'             -- show diff icons on the left
   use 'christoomey/vim-tmux-navigator'     -- Ctrl+{h,j,k,l} navigates consistently across tmux and vim
+  use 'cocopon/iceberg.vim'                -- theme
   use 'eslint/eslint'                      -- JS linter
   use 'fatih/vim-go'                       -- golang miscellany
   use 'google/vim-searchindex'             -- add count and index when searching
@@ -325,7 +311,10 @@ require('packer').startup(function(use)
       end
   }
 
-  use 'cocopon/iceberg.vim'
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+  }
 end)
 
 require("fzf-lua").setup({
@@ -334,6 +323,8 @@ require("fzf-lua").setup({
     git_icons = false,
   },
 })
+
+require("lualine").setup()
 
 vim.opt.termguicolors=true
 vim.o.background = "dark"

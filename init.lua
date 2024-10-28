@@ -4,27 +4,6 @@ autocmd BufWritePre * %s/\s\+$//e
 
 hi clear SignColumn
 
-"Spellcheck
-set spelllang=en_us
-set spellfile=~/.vim/spell/en.utf-8.add
-for item in ['Bad','Cap','Local','Rare']| exe "hi clear Spell".item| endfor
-"Misspelled words
-hi SpellBad cterm=underline gui=undercurl
-"Rare words
-hi SpellRare cterm=underline gui=undercurl
-"Word not capitalized
-hi SpellCap cterm=underline gui=undercurl
-"Word spelled like the British
-hi SpellLocal cterm=underline gui=undercurl
-"Certain file types only
-set nospell
-autocmd FileType tex,text,markdown,html,json set spell
-autocmd FileType tex,text,markdown,html,json syntax spell toplevel
-"Replace last misspelled word with first suggestions
-inoremap <C-l><C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
-"Add last misspelled word to dictionary
-inoremap <C-l><C-o> <c-g>u<Esc>[szg`]a<c-g>u
-
 "Use system clipboard for yank/paste
 set clipboard=unnamedplus
 nnoremap <leader>p p`[v`]=

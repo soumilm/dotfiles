@@ -11,14 +11,10 @@ vnoremap <Right> <NOP>
 
 "Indentation
 set smartindent
-autocmd FileType sml setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
-autocmd FileType ml setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
 autocmd FileType tex setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
 autocmd FileType python setlocal expandtab tabstop=4 softtabstop=4 shiftwidth=4
 autocmd FileType go setlocal noexpandtab tabstop=4 softtabstop=4 shiftwidth=4
 autocmd FileType text setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
-au BufRead,BufNewFile *.ml,*.mli,*.mll,*.mly setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
-au BufRead,BufNewFile *.c0,*.l1,*.l2,*.l3,*.l4,*.l5,*.l6 setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
 "Delete trailing whitespace in all lines
 autocmd BufWritePre * %s/\s\+$//e
 
@@ -34,9 +30,6 @@ set hlsearch "Highlight matches
 nnoremap <C-c> :nohlsearch<CR>
 " Visual mode pressing * or # searches for the current selection
 vnoremap <silent> * y/\V<C-R>=escape(@",'/\')<CR><CR>
-
-" Syntax highlighting for C0
-au BufRead,BufNewFile *.c0,*.l1,*.l2,*.l3,*.l4,*.l5,*.l6 setlocal syntax=c
 
 set encoding=utf-8
 
@@ -76,13 +69,9 @@ set nospell
 autocmd FileType tex,text,markdown,html,json set spell
 autocmd FileType tex,text,markdown,html,json syntax spell toplevel
 "Replace last misspelled word with first suggestions
-inoremap <C-l>1 <c-g>u<Esc>[s1z=`]a<c-g>u
 inoremap <C-l><C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 "Add last misspelled word to dictionary
-inoremap <C-l>+ <c-g>u<Esc>[szg`]a<c-g>u
 inoremap <C-l><C-o> <c-g>u<Esc>[szg`]a<c-g>u
-"Go to last misspelled word and open suggestions
-inoremap <C-l><C-k> <C-x>s
 
 "Open file navigation on left
 autocmd VimEnter * :wincmd p
@@ -115,8 +104,6 @@ nnoremap U :MundoToggle<CR>
 set wildmenu
 "Toggle Colorcolumn
 noremap <expr> <F8> &cc == '' ? ':set cc=80<CR>' : ':set cc=<CR>'
-au BufRead,BufNewFile *.ml,*.mli,*.mll,*.mly set cc=80
-autocmd FileType sml set cc=80
 
 "Use system clipboard for yank/paste
 set clipboard=unnamedplus
@@ -156,11 +143,8 @@ let g:startify_bookmarks = [
             \ ]
 
 nnoremap + :ALEGoToDefinition<CR>
-nnoremap ++ <C-O>
 
 let g:python_highlight_all = 1
-
-let g:airline#extensions#hunks#non_zero_only = 1
 
 " ----- Raimondi/delimitMate settings -----
 let delimitMate_expand_cr = 1
@@ -178,30 +162,6 @@ nnoremap <Space> i<Space><Esc>r
 "Automatch Braces
 inoremap {<CR> {<CR>}<Esc>ko
 
-"Block Comment/Uncomment
-nnoremap <expr> <C-_> (synIDattr(synID(line("."), col("."), 0), "name") =~ 'comment\c') ?
-			\ '0:<S-Left>exe "<S-Right>normal! ".b:unCommentCommand<CR>' :
-			\ '0:<S-Left>exe "<S-Right>normal! ".b:commentCommand<CR>'
-
-vnoremap <expr> <C-_> (synIDattr(synID(line("."), col("."), 0), "name") =~ 'comment\c') ?
-			\ '0:<S-Left>exe "<S-Right>normal! ".b:unCommentCommand<CR>gv' :
-			\ '0:<S-Left>exe "<S-Right>normal! ".b:commentCommand<CR>gv'
-
-autocmd Filetype c,cpp,java let b:commentCommand='i//'   "Comment for '//' filetypes
-autocmd Filetype c,cpp,java let b:unCommentCommand='^xx' "un-Comment for '//' filetypes
-autocmd Filetype python let b:commentCommand='i#'    "Comment for '#' filetypes
-autocmd Filetype python let b:unCommentCommand='^x'  "un-Comment for '#' filetypes
-autocmd Filetype vim let b:commentCommand='i"'    "Comment for vim filetypes
-autocmd Filetype vim let b:unCommentCommand='^x'  "un-Comment for vim filetypes
-autocmd Filetype tex let b:commentCommand='i% '    "Comment for '%' filetypes
-autocmd Filetype tex let b:unCommentCommand='^xx'  "un-Comment for '%' filetypes
-autocmd Filetype sml,mlw nnoremap <expr> <C-_> (synIDattr(synID(line("."), col("."), 0), "name") =~ 'comment\c') ?
-			\ '<Esc>0xx$xx' :
-			\ '<Esc>0i(*<Esc>$a*)<Esc>'
-autocmd Filetype sml,mlw vnoremap <expr> <C-_> (synIDattr(synID(line("."), col("."), 0), "name") =~ 'comment\c') ?
-			\ '<Esc>`<xx`>xxgv' :
-			\ '<Esc>`<i(*<Esc>`>a*)<Esc>gv'
-
 autocmd BufRead,BufNewFile *bashrc* set filetype=bash
 
 "Default Tex Flavor
@@ -212,9 +172,6 @@ autocmd FileType html inoremap <C-N> <esc>:let@x=@"<CR>yypkI<<esc>A><esc>jI</<es
 
 "Autocomplete \begin LaTeX
 autocmd FileType tex inoremap <C-N> <esc>:let@x=@"<CR>YpkI\begin{<esc>A}<esc>jI\end{<esc>A}<esc>:let@"=@x<CR>ko
-" ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
-let s:opam_share_dir = system("opam config var share")
-let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
 
 "Compile LaTeX on Ctrl+T
 autocmd FileType tex nmap <buffer> <C-P> :wa <bar> !latexmk -pdf %<CR>

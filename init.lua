@@ -1,3 +1,4 @@
+vim.cmd([[
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -131,7 +132,6 @@ vnoremap <silent> * y/\V<C-R>=escape(@",'/\')<CR><CR>
 au BufRead,BufNewFile *.c0,*.l1,*.l2,*.l3,*.l4,*.l5,*.l6 setlocal syntax=c
 
 set encoding=utf-8
-scriptencoding utf-8
 
 "Move cursor past line end
 set virtualedit=onemore
@@ -293,11 +293,6 @@ augroup END
 "Insert a single character from normal mode
 nnoremap <Space> i<Space><Esc>r
 
-noremap [[ ?{<CR>w99[{
-noremap ][ /}<CR>b99]}
-noremap ]] j0[[%/{<CR>
-noremap [] k$][%?}<CR>
-
 "Automatch Braces
 inoremap {<CR> {<CR>}<Esc>ko
 
@@ -367,3 +362,4 @@ if system('uname -s') == "Darwin\n"
   "OSX
   source ~/dotfiles/.work_vimrc
 endif
+]])

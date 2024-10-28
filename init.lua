@@ -2,26 +2,6 @@ vim.cmd([[
 "Delete trailing whitespace in all lines
 autocmd BufWritePre * %s/\s\+$//e
 
-"Searching
-set incsearch "Search as you type
-set hlsearch "Highlight matches
-"Remove search highlight with Esc
-nnoremap <C-c> :nohlsearch<CR>
-" Visual mode pressing * or # searches for the current selection
-vnoremap <silent> * y/\V<C-R>=escape(@",'/\')<CR><CR>
-
-set encoding=utf-8
-
-"Move cursor past line end
-set virtualedit=onemore
-
-"Sets cursor shape to bar when in insert mode
-let &t_SI = "\e[5 q"
-let &t_EI = "\e[1 q"
-
-"Colorscheme
-set background=dark
-
 hi clear SignColumn
 
 "Spellcheck
@@ -44,13 +24,6 @@ autocmd FileType tex,text,markdown,html,json syntax spell toplevel
 inoremap <C-l><C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 "Add last misspelled word to dictionary
 inoremap <C-l><C-o> <c-g>u<Esc>[szg`]a<c-g>u
-
-"Open file navigation on left
-autocmd VimEnter * :wincmd p
-let g:netrw_winsize = 25
-let g:netrw_browse_split = 0
-let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
-let g:netrw_altv = 1
 
 "Command and Undo History
 set history=1000
@@ -266,9 +239,19 @@ Map('v', '<Right>', '<NOP>')
 
 Map('n', 'U', ':MundoToggle<CR>')
 
+-- Un-highlight search results on C-c
+Map('n', '<C-c>', ':nohlsearch<CR>')
+-- * searches current selection
+Map('v', '*', [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
+
+opt.virtualedit = 'onemore'
+
 -- INDENTATION
 opt.smartindent = true
 opt.tabstop = 2
 opt.expandtab = true
 opt.softtabstop = 2
 opt.shiftwidth = 2
+
+opt.encoding = 'utf-8'
+opt.fileencodings = 'utf-8'

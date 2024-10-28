@@ -247,8 +247,6 @@ let g:startify_bookmarks = [
 
 nnoremap + :ALEGoToDefinition<CR>
 nnoremap ++ <C-O>
-let g:ale_linters = {'python': ['pyright']}
-let g:ale_completion_enabled = 1
 
 let g:python_highlight_all = 1
 
@@ -345,7 +343,6 @@ require('packer').startup(function(use)
   use 'SirVer/ultisnips'                   -- configurable tab-completed ultisnips
   use 'airblade/vim-gitgutter'             -- show diff icons on the left
   use 'christoomey/vim-tmux-navigator'     -- Ctrl+{h,j,k,l} navigates consistently across tmux and vim
-  use 'dense-analysis/ale'                 -- linter + autocomplete
   use 'eslint/eslint'                      -- JS linter
   use 'fatih/vim-go'                       -- golang miscellany
   use 'google/vim-searchindex'             -- add count and index when searching
@@ -363,9 +360,25 @@ require('packer').startup(function(use)
   use 'tpope/vim-vinegar'                  -- file navigation
   use 'vim-python/python-syntax'           -- for f-strings
   use 'yegappan/mru'                       -- see most recently used files
+
   use { "ibhagwan/fzf-lua",
     requires = { "nvim-tree/nvim-web-devicons" }, -- optional for icon support
-}
+  }
+
+  use {
+    'dense-analysis/ale',
+    config = function()
+        local g = vim.g
+
+        g.ale_ruby_rubocop_auto_correct_all = 1
+        g.ale_linters = {
+            ruby = {'rubocop', 'ruby'},
+            lua = {'lua_language_server'},
+            python = {'pyright'},
+        }
+        g.ale_completion_enabled = 1
+      end
+  }
 end)
 
 require("fzf-lua").setup({

@@ -148,7 +148,6 @@ alias dotfiles='cd ~/dotfiles'
 function wisecow() {
 	fortune "$@" | cowsay -n -W -1
 }
-wisecow
 
 function Hello () {
 	if [ "$1" = "There" ]; then
@@ -227,3 +226,5 @@ case "$(uname -sr)" in
      echo 'OS unknown'
      ;;
 esac
+
+wisecow

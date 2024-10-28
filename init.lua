@@ -25,19 +25,6 @@ inoremap <C-l><C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 "Add last misspelled word to dictionary
 inoremap <C-l><C-o> <c-g>u<Esc>[szg`]a<c-g>u
 
-"Command and Undo History
-set history=1000
-set undolevels=1000
-
-"Persistent Undo
-set undofile
-set undodir=~/.vim/undodir
-
-"Autocomplete Menu
-set wildmenu
-"Toggle Colorcolumn
-noremap <expr> <F8> &cc == '' ? ':set cc=80<CR>' : ':set cc=<CR>'
-
 "Use system clipboard for yank/paste
 set clipboard=unnamedplus
 nnoremap <leader>p p`[v`]=
@@ -53,23 +40,12 @@ noremap P gP<BS><Right>
 noremap gp p
 noremap gP P
 
-"Split vertically/horizontally
-set splitright
-set splitbelow
-nnoremap ,v <C-w>v
-nnoremap ,h <C-w>s
-
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 " :UltiSnipsEdit splits window.
 let g:UltiSnipsEditSplit="vertical"
-
-let g:startify_change_to_dir = 0
-let g:startify_bookmarks = [
-            \ { 'v': '~/.vimrc' },
-            \ ]
 
 nnoremap + :ALEGoToDefinition<CR>
 
@@ -255,3 +231,23 @@ opt.shiftwidth = 2
 
 opt.encoding = 'utf-8'
 opt.fileencodings = 'utf-8'
+
+opt.history = 1000
+opt.undolevels = 1000
+-- Persistent Undo
+opt.undofile = true
+opt.undodir = '~/.vim/undodir'
+
+opt.wildmenu = true
+opt.wildmode = 'longest:full,full'
+
+-- Splits
+opt.splitright = true
+opt.splitbelow = true
+Map('n', ',v', '<C-w>v')
+Map('n', ',h', '<C-w>s')
+
+vim.g.startify_change_to_dir = 0
+vim.g.startify_bookmarks = {
+  {v = '~/.vimrc' },
+}

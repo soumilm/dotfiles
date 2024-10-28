@@ -121,6 +121,7 @@ export TEXINPUTS=".:~/.latex:"
 export UNAME=$(uname)
 
 export EDITOR=nvim
+export GIT_EDITOR=nvim
 
 alias sml='rlwrap sml'
 alias ocaml='rlwrap ocaml'

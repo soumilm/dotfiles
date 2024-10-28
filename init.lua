@@ -1,50 +1,4 @@
 vim.cmd([[
-set rtp+=/opt/homebrew/opt/fzf
-
-"Marks Used
-" `y - Used for cursor placement after yank
-
-"Registries Used
-" "x - Used for environment completion command for .tex files
-
-"Function Keys Used
-" F2 - Used to toggle show whitespace
-" F8 - Used to toggle colorcolumn
-" Ensure that we are in modern vim mode, not backwards-compatible vi mode
-set nocompatible
-set backspace=indent,eol,start
-
-" Remove the goddamn swap files
-set noswapfile
-
-" Helpful information: cursor position in bottom right, line numbers on
-" left
-set ruler
-set relativenumber
-set number
-
-" Enable mouse support
-set mouse=a
-
-" Show multicharacter commands as they are being typed
-set showcmd
-
-"Disable modelines
-set nomodeline
-
-"Highlight current line
-set cursorline
-
-"Show filename at the bottom
-set laststatus=2
-
-"No Wrapped Lines and Smooth Horizontal Scrolling
-set nowrap
-set sidescroll=1
-
-"Minimum lines to keep above and below the cursor
-set scrolloff=5
-
 "I really need to learn not to use these keys
 noremap <Up> <NOP>
 noremap <Down> <NOP>
@@ -163,9 +117,6 @@ set wildmenu
 noremap <expr> <F8> &cc == '' ? ':set cc=80<CR>' : ':set cc=<CR>'
 au BufRead,BufNewFile *.ml,*.mli,*.mll,*.mly set cc=80
 autocmd FileType sml set cc=80
-
-"Folding
-set wrap linebreak nolist
 
 "Use system clipboard for yank/paste
 set clipboard=unnamedplus
@@ -310,6 +261,26 @@ if system('uname -s') == "Darwin\n"
 endif
 ]])
 
+local opt = vim.opt
+
+opt.backspace = {'indent', 'eol', 'start'}
+opt.swapfile = false -- Remove the swapfiles
+
+opt.ruler = true
+opt.number = true
+opt.relativenumber = true
+opt.cursorline = true
+
+opt.mouse = "a"
+
+opt.laststatus = 2
+
+vim.wo.wrap = true
+vim.wo.linebreak = true
+vim.wo.list = false
+
+opt.scrolloff = 5
+
 require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
@@ -367,4 +338,4 @@ require("fzf-lua").setup({
 vim.opt.termguicolors=true
 vim.o.background = "dark"
 vim.cmd.colorscheme "iceberg"
-vim.cmd([[let g:lightline = { 'colorscheme': 'iceberg' }]])
+vim.cmd("let g:lightline = { 'colorscheme': 'iceberg' }")

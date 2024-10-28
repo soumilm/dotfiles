@@ -1,7 +1,4 @@
 vim.cmd([[
-set nocompatible              " be iMproved, required
-filetype off                  " required
-
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -10,7 +7,6 @@ Plugin 'VundleVim/Vundle.vim'
 " Colorscheme plugin
 Plugin 'cocopon/iceberg.vim'
 call vundle#end()            " required
-filetype plugin indent on    " required
 
 set rtp+=/opt/homebrew/opt/fzf
 
@@ -38,12 +34,6 @@ set number
 
 " Enable mouse support
 set mouse=a
-
-"Enable filetype detection and syntax hilighting
-syntax on
-filetype on
-filetype indent on
-filetype plugin on
 
 " Show multicharacter commands as they are being typed
 set showcmd
@@ -95,8 +85,6 @@ set shiftwidth=2
 "Searching
 set incsearch "Search as you type
 set hlsearch "Highlight matches
-set ignorecase
-set smartcase
 "Remove search highlight with Esc
 nnoremap <C-c> :nohlsearch<CR>
 " Visual mode pressing * or # searches for the current selection
@@ -116,7 +104,6 @@ let &t_EI = "\e[1 q"
 
 "Colorscheme
 set background=dark
-set t_Co=256
 colorscheme iceberg
 let g:lightline = { 'colorscheme': 'iceberg' }
 "Use All colors

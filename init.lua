@@ -215,7 +215,7 @@ opt.history = 1000
 opt.undolevels = 1000
 -- Persistent Undo
 opt.undofile = true
-opt.undodir = '~/.vim/undodir'
+opt.undodir = vim.fs.normalize('~/.vim/undodir')
 
 opt.wildmenu = true
 opt.wildmode = 'longest:full,full'

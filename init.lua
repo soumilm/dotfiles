@@ -4,21 +4,6 @@ autocmd BufWritePre * %s/\s\+$//e
 
 hi clear SignColumn
 
-"Use system clipboard for yank/paste
-set clipboard=unnamedplus
-nnoremap <leader>p p`[v`]=
-
-"Keep cursor in place for yank
-vnoremap y myy`y
-vnoremap Y myY`y
-nnoremap Y y$
-
-"Put cursor at end of pasted text
-noremap p gp<BS><Right>
-noremap P gP<BS><Right>
-noremap gp p
-noremap gP P
-
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -230,3 +215,17 @@ vim.g.startify_change_to_dir = 0
 vim.g.startify_bookmarks = {
   {v = '~/.vimrc' },
 }
+
+-- Keep cursor in place for yank
+Map('v', 'y', 'myy`y')
+Map('v', 'Y', 'myY`y')
+Map('n', 'Y', 'y$')
+
+-- Put the cursor after pasted content
+Map('', 'p', 'gp<BS><Right>')
+Map('', 'P', 'gP<BS><Right>')
+Map('', 'gp', 'p')
+Map('', 'gP', 'P')
+
+opt.clipboard = 'unnamedplus'
+Map('n', '<leader>p', 'p`[v`]=')

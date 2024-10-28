@@ -1,17 +1,6 @@
 vim.cmd([[
-"Indentation
-set smartindent
-autocmd FileType tex setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
-autocmd FileType python setlocal expandtab tabstop=4 softtabstop=4 shiftwidth=4
-autocmd FileType go setlocal noexpandtab tabstop=4 softtabstop=4 shiftwidth=4
-autocmd FileType text setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
 "Delete trailing whitespace in all lines
 autocmd BufWritePre * %s/\s\+$//e
-
-set tabstop=2
-set expandtab
-set softtabstop=2
-set shiftwidth=2
 
 "Searching
 set incsearch "Search as you type
@@ -276,3 +265,10 @@ Map('v', '<Left>', '<NOP>')
 Map('v', '<Right>', '<NOP>')
 
 Map('n', 'U', ':MundoToggle<CR>')
+
+-- INDENTATION
+opt.smartindent = true
+opt.tabstop = 2
+opt.expandtab = true
+opt.softtabstop = 2
+opt.shiftwidth = 2

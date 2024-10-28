@@ -5,7 +5,6 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 " Colorscheme plugin
-Plugin 'cocopon/iceberg.vim'
 call vundle#end()            " required
 
 set rtp+=/opt/homebrew/opt/fzf
@@ -104,10 +103,6 @@ let &t_EI = "\e[1 q"
 
 "Colorscheme
 set background=dark
-colorscheme iceberg
-let g:lightline = { 'colorscheme': 'iceberg' }
-"Use All colors
-set termguicolors
 
 hi clear SignColumn
 
@@ -366,6 +361,8 @@ require('packer').startup(function(use)
         g.ale_completion_enabled = 1
       end
   }
+
+  use 'cocopon/iceberg.vim'
 end)
 
 require("fzf-lua").setup({
@@ -374,3 +371,8 @@ require("fzf-lua").setup({
     git_icons = false,
   },
 })
+
+vim.opt.termguicolors=true
+vim.o.background = "dark"
+vim.cmd.colorscheme "iceberg"
+vim.cmd([[let g:lightline = { 'colorscheme': 'iceberg' }]])

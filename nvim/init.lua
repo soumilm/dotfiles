@@ -126,7 +126,9 @@ Map('n', '<Space>', 'i<Space><Esc>r')
 -- Automatch Braces
 Map('i', '{<CR>', '{<CR>}<Esc>ko')
 
-vim.cmd([[autocmd BufWritePre * %s/\s\+$//e]])
+vim.api.nvim_create_autocmd("BufWritePre", {
+  command = [[%s/\s\+$//e]]
+})
 
 vim.cmd([[
 " ----- Raimondi/delimitMate settings -----

@@ -159,5 +159,5 @@ autocmd FileType python nmap <buffer> <C-P> :wa <bar> !python3 %<CR>
 
 -- Only on OSX
 if os.capture('uname -s') == "Darwin" then
-  vim.cmd("source ~/dotfiles/nvim/stripe.lua")
+  require("soumilm.stripe")
 end

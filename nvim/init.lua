@@ -1,33 +1,3 @@
-vim.cmd([[
-"Delete trailing whitespace in all lines
-autocmd BufWritePre * %s/\s\+$//e
-
-" ----- Raimondi/delimitMate settings -----
-let delimitMate_expand_cr = 1
-augroup mydelimitMate
-  au!
-  au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
-  au FileType tex let b:delimitMate_quotes = ""
-  au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
-  au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
-augroup END
-
-autocmd BufRead,BufNewFile *bashrc* set filetype=bash
-
-"Autocomplete HTML tags
-autocmd FileType html inoremap <C-N> <esc>:let@x=@"<CR>yypkI<<esc>A><esc>jI</<esc>A><esc>:let@"=@x<CR>ko
-
-"Autocomplete \begin LaTeX
-autocmd FileType tex inoremap <C-N> <esc>:let@x=@"<CR>YpkI\begin{<esc>A}<esc>jI\end{<esc>A}<esc>:let@"=@x<CR>ko
-
-"Compile LaTeX on Ctrl+T
-autocmd FileType tex nmap <buffer> <C-P> :wa <bar> !latexmk -pdf %<CR>
-"Compile markdown on Ctrl+T
-autocmd FileType markdown nmap <buffer> <C-P> :wa <bar> !pandoc -s -o %:r.pdf %<CR>
-"Run python on Ctrl+T
-autocmd FileType python nmap <buffer> <C-P> :wa <bar> !python3 %<CR>
-]])
-
 function Map(mode, lhs, rhs, opts)
     local options = { noremap = true, silent = true }
     if opts then
@@ -38,6 +8,17 @@ end
 
 local opt = vim.opt
 local g = vim.g
+
+function os.capture(cmd, raw)
+  local f = assert(io.popen(cmd, 'r'))
+  local s = assert(f:read('*a'))
+  f:close()
+  if raw then return s end
+  s = string.gsub(s, '^%s+', '')
+  s = string.gsub(s, '%s+$', '')
+  s = string.gsub(s, '[\n\r]+', ' ')
+  return s
+end
 
 opt.backspace = {'indent', 'eol', 'start'}
 opt.swapfile = false -- Remove the swapfiles
@@ -145,16 +126,34 @@ Map('n', '<Space>', 'i<Space><Esc>r')
 -- Automatch Braces
 Map('i', '{<CR>', '{<CR>}<Esc>ko')
 
-function os.capture(cmd, raw)
-  local f = assert(io.popen(cmd, 'r'))
-  local s = assert(f:read('*a'))
-  f:close()
-  if raw then return s end
-  s = string.gsub(s, '^%s+', '')
-  s = string.gsub(s, '%s+$', '')
-  s = string.gsub(s, '[\n\r]+', ' ')
-  return s
-end
+vim.cmd([[autocmd BufWritePre * %s/\s\+$//e]])
+
+vim.cmd([[
+" ----- Raimondi/delimitMate settings -----
+let delimitMate_expand_cr = 1
+augroup mydelimitMate
+  au!
+  au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
+  au FileType tex let b:delimitMate_quotes = ""
+  au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
+  au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
+augroup END
+
+autocmd BufRead,BufNewFile *bashrc* set filetype=bash
+
+"Autocomplete HTML tags
+autocmd FileType html inoremap <C-N> <esc>:let@x=@"<CR>yypkI<<esc>A><esc>jI</<esc>A><esc>:let@"=@x<CR>ko
+
+"Autocomplete \begin LaTeX
+autocmd FileType tex inoremap <C-N> <esc>:let@x=@"<CR>YpkI\begin{<esc>A}<esc>jI\end{<esc>A}<esc>:let@"=@x<CR>ko
+
+"Compile LaTeX on Ctrl+T
+autocmd FileType tex nmap <buffer> <C-P> :wa <bar> !latexmk -pdf %<CR>
+"Compile markdown on Ctrl+T
+autocmd FileType markdown nmap <buffer> <C-P> :wa <bar> !pandoc -s -o %:r.pdf %<CR>
+"Run python on Ctrl+T
+autocmd FileType python nmap <buffer> <C-P> :wa <bar> !python3 %<CR>
+]])
 
 -- Only on OSX
 if os.capture('uname -s') == "Darwin" then

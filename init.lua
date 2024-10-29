@@ -2,10 +2,6 @@ vim.cmd([[
 "Delete trailing whitespace in all lines
 autocmd BufWritePre * %s/\s\+$//e
 
-nnoremap + :ALEGoToDefinition<CR>
-
-let g:python_highlight_all = 1
-
 " ----- Raimondi/delimitMate settings -----
 let delimitMate_expand_cr = 1
 augroup mydelimitMate
@@ -16,16 +12,7 @@ augroup mydelimitMate
   au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
 augroup END
 
-"Insert a single character from normal mode
-nnoremap <Space> i<Space><Esc>r
-
-"Automatch Braces
-inoremap {<CR> {<CR>}<Esc>ko
-
 autocmd BufRead,BufNewFile *bashrc* set filetype=bash
-
-"Default Tex Flavor
-let g:tex_flavor = "latex"
 
 "Autocomplete HTML tags
 autocmd FileType html inoremap <C-N> <esc>:let@x=@"<CR>yypkI<<esc>A><esc>jI</<esc>A><esc>:let@"=@x<CR>ko
@@ -228,3 +215,12 @@ g.UltiSnipsExpandTrigger = "<tab>"
 g.UltiSnipsJumpForwardTrigger = "<tab>"
 g.UltiSnipsJumpBackwardTrigger = "<S-tab>"
 g.UltiSnipsEditSplit = "vertical"
+
+Map('n', '+', ':ALEGoToDefinition<CR>')
+g.tex_flavor = "latex"
+
+
+-- Insert a single character from normal mode
+Map('n', '<Space>', 'i<Space><Esc>r')
+-- Automatch Braces
+Map('i', '{<CR>', '{<CR>}<Esc>ko')

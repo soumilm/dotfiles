@@ -76,7 +76,7 @@ Map('v', '*', [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
 
 opt.virtualedit = 'onemore'
 
--- INDENTATION
+---- Indentation ----
 opt.smartindent = true
 opt.tabstop = 2
 opt.expandtab = true
@@ -103,23 +103,23 @@ Map('n', ',h', '<C-w>s')
 
 g.startify_change_to_dir = 0
 g.startify_bookmarks = {
-  {v = '~/.vimrc' },
+  {d = '~/dotfiles' },
+  {i = '~/dotfiles/nvim/init.lua' },
 }
 
+---- Miscellaneous Clipboard Stuff -----
 -- Keep cursor in place for yank
 Map('v', 'y', 'myy`y')
 Map('v', 'Y', 'myY`y')
 Map('n', 'Y', 'y$')
-
 -- Put the cursor after pasted content
 Map('', 'p', 'gp<BS><Right>')
 Map('', 'P', 'gP<BS><Right>')
 Map('', 'gp', 'p')
 Map('', 'gP', 'P')
-
+-- Use system clipboard
 opt.clipboard = 'unnamedplus'
 Map('n', '<leader>p', 'p`[v`]=')
-
 
 g.UltiSnipsExpandTrigger = "<tab>"
 g.UltiSnipsJumpForwardTrigger = "<tab>"
@@ -129,12 +129,12 @@ g.UltiSnipsEditSplit = "vertical"
 Map('n', '+', ':ALEGoToDefinition<CR>')
 g.tex_flavor = "latex"
 
-
 -- Insert a single character from normal mode
 Map('n', '<Space>', 'i<Space><Esc>r')
 -- Automatch Braces
 Map('i', '{<CR>', '{<CR>}<Esc>ko')
 
+-- Strip all trailing whitespaces on save
 vim.api.nvim_create_autocmd("BufWritePre", {
   command = [[%s/\s\+$//e]]
 })
@@ -195,9 +195,9 @@ FileTypeMap("html", "i", "<C-J>", [[<lt>em><lt>/em><esc>4hi]])
 
 -- Compile/run stuff on Ctrl+P
 vim.cmd([[
-autocmd FileType tex nmap <buffer> <C-P> :wa <bar> !latexmk -pdf %<CR>
-autocmd FileType markdown nmap <buffer> <C-P> :wa <bar> !pandoc -s -o %:r.pdf %<CR>
-autocmd FileType python nmap <buffer> <C-P> :wa <bar> !python3 %<CR>
+  autocmd FileType tex nmap <buffer> <C-P> :wa <bar> !latexmk -pdf %<CR>
+  autocmd FileType markdown nmap <buffer> <C-P> :wa <bar> !pandoc -s -o %:r.pdf %<CR>
+  autocmd FileType python nmap <buffer> <C-P> :wa <bar> !python3 %<CR>
 ]])
 
 -- Only on OSX

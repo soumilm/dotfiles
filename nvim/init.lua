@@ -6,6 +6,15 @@ function Map(mode, lhs, rhs, opts)
     vim.keymap.set(mode, lhs, rhs, options)
 end
 
+function FileTypeMap(filetype, mode, lhs, rhs, opts)
+  vim.api.nvim_create_autocmd( "FileType", {
+    pattern = filetype,
+    callback = function()
+      Map(mode, lhs, rhs, opts)
+    end
+  })
+end
+
 local opt = vim.opt
 local g = vim.g
 
@@ -137,6 +146,18 @@ vim.api.nvim_create_autocmd( {"BufRead", "BufNewFile"}, {
   end
 })
 
+-- Match open tags with corresponding close tags
+FileTypeMap(
+  "html", "i",
+  "<C-N>",
+  [[<esc>:let@x=@"<CR>yypkI<<esc>A><esc>jI</<esc>A><esc>:let@"=@x<CR>ko]]
+)
+FileTypeMap(
+  "tex", "i",
+  "<C-N>",
+  [[<esc>:let@x=@"<CR>YpkI\begin{<esc>A}<esc>jI\end{<esc>A}<esc>:let@"=@x<CR>ko]]
+)
+
 vim.cmd([[
 " ----- Raimondi/delimitMate settings -----
 let delimitMate_expand_cr = 1
@@ -147,12 +168,6 @@ augroup mydelimitMate
   au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
   au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
 augroup END
-
-"Autocomplete HTML tags
-autocmd FileType html inoremap <C-N> <esc>:let@x=@"<CR>yypkI<<esc>A><esc>jI</<esc>A><esc>:let@"=@x<CR>ko
-
-"Autocomplete \begin LaTeX
-autocmd FileType tex inoremap <C-N> <esc>:let@x=@"<CR>YpkI\begin{<esc>A}<esc>jI\end{<esc>A}<esc>:let@"=@x<CR>ko
 
 "Compile LaTeX on Ctrl+T
 autocmd FileType tex nmap <buffer> <C-P> :wa <bar> !latexmk -pdf %<CR>

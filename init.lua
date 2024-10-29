@@ -2,15 +2,6 @@ vim.cmd([[
 "Delete trailing whitespace in all lines
 autocmd BufWritePre * %s/\s\+$//e
 
-hi clear SignColumn
-
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
-" :UltiSnipsEdit splits window.
-let g:UltiSnipsEditSplit="vertical"
-
 nnoremap + :ALEGoToDefinition<CR>
 
 let g:python_highlight_all = 1
@@ -81,6 +72,7 @@ function Map(mode, lhs, rhs, opts)
 end
 
 local opt = vim.opt
+local g = vim.g
 
 opt.backspace = {'indent', 'eol', 'start'}
 opt.swapfile = false -- Remove the swapfiles
@@ -163,10 +155,11 @@ require("fzf-lua").setup({
 
 require("lualine").setup()
 
-vim.opt.termguicolors=true
-vim.o.background = "dark"
+vim.cmd("hi clear SignColumn")
+opt.termguicolors = true
+opt.background = "dark"
 vim.cmd.colorscheme "iceberg"
-vim.cmd("let g:lightline = { 'colorscheme': 'iceberg' }")
+g.lightlight = { colorscheme = 'iceberg' }
 
 Map('', '<Up>', '<NOP>')
 Map('', '<Down>', '<NOP>')
@@ -211,8 +204,8 @@ opt.splitbelow = true
 Map('n', ',v', '<C-w>v')
 Map('n', ',h', '<C-w>s')
 
-vim.g.startify_change_to_dir = 0
-vim.g.startify_bookmarks = {
+g.startify_change_to_dir = 0
+g.startify_bookmarks = {
   {v = '~/.vimrc' },
 }
 
@@ -229,3 +222,9 @@ Map('', 'gP', 'P')
 
 opt.clipboard = 'unnamedplus'
 Map('n', '<leader>p', 'p`[v`]=')
+
+
+g.UltiSnipsExpandTrigger = "<tab>"
+g.UltiSnipsJumpForwardTrigger = "<tab>"
+g.UltiSnipsJumpBackwardTrigger = "<S-tab>"
+g.UltiSnipsEditSplit = "vertical"

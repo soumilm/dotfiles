@@ -194,11 +194,9 @@ FileTypeMap("html", "v", "<C-J>", [[di<lt>em><lt>/em><esc>5hp]])
 FileTypeMap("html", "i", "<C-J>", [[<lt>em><lt>/em><esc>4hi]])
 
 -- Compile/run stuff on Ctrl+P
-vim.cmd([[
-  autocmd FileType tex nmap <buffer> <C-P> :wa <bar> !latexmk -pdf %<CR>
-  autocmd FileType markdown nmap <buffer> <C-P> :wa <bar> !pandoc -s -o %:r.pdf %<CR>
-  autocmd FileType python nmap <buffer> <C-P> :wa <bar> !python3 %<CR>
-]])
+FileTypeMap("tex", "n", "<C-P>", ":wa <bar> !latexmk -pdf %<CR>")
+FileTypeMap("markdown", "n", "<C-P>", ":wa <bar> !pandoc -s -o %:r.pdf %<CR>")
+FileTypeMap("python", "n", "<C-P>", ":wa <bar> !python %<CR>")
 
 -- Only on OSX
 if os.capture('uname -s') == "Darwin" then

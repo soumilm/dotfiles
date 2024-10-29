@@ -179,6 +179,20 @@ vim.api.nvim_create_autocmd("FileType", {
   end
 })
 
+---- Ctrl+B/J for bold/italics ----
+FileTypeMap("markdown", "v", "<C-B>", [[di**<esc>hp]])
+FileTypeMap("markdown", "i", "<C-B>", [[**<esc>i]])
+FileTypeMap("markdown", "v", "<C-J>", [[di__<esc>hp]])
+FileTypeMap("markdown", "i", "<C-J>", [[__<esc>i]])
+FileTypeMap("tex", "v", "<C-B>", [[di\textbf{}<esc>hp]])
+FileTypeMap("tex", "i", "<C-B>", [[\textbf{}<esc>i]])
+FileTypeMap("tex", "v", "<C-J>", [[di\textit{}<esc>hp]])
+FileTypeMap("tex", "i", "<C-J>", [[\textit{}<esc>i]])
+FileTypeMap("html", "v", "<C-B>", [[di<lt>strong><lt>/strong><esc>9hp]])
+FileTypeMap("html", "i", "<C-B>", [[<lt>strong><lt>/strong><esc>8hi]])
+FileTypeMap("html", "v", "<C-J>", [[di<lt>em><lt>/em><esc>5hp]])
+FileTypeMap("html", "i", "<C-J>", [[<lt>em><lt>/em><esc>4hi]])
+
 -- Compile/run stuff on Ctrl+P
 vim.cmd([[
 autocmd FileType tex nmap <buffer> <C-P> :wa <bar> !latexmk -pdf %<CR>

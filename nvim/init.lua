@@ -26,24 +26,6 @@ autocmd FileType tex nmap <buffer> <C-P> :wa <bar> !latexmk -pdf %<CR>
 autocmd FileType markdown nmap <buffer> <C-P> :wa <bar> !pandoc -s -o %:r.pdf %<CR>
 "Run python on Ctrl+T
 autocmd FileType python nmap <buffer> <C-P> :wa <bar> !python3 %<CR>
-
-"Ctrl+B and Ctrl+J for bold/italics
-"Markdown :
-autocmd FileType markdown vnoremap <C-B> di**<esc>hp
-autocmd FileType markdown inoremap <C-B> **<esc>i
-autocmd FileType markdown vnoremap <C-J> di__<esc>hp
-autocmd FileType markdown inoremap <C-J> __<esc>i
-"LaTeX :
-autocmd FileType tex vnoremap <C-B> di\textbf{}<esc>hp
-autocmd FileType tex inoremap <C-B> \textbf{}<esc>i
-autocmd FileType tex vnoremap <C-J> di\textit{}<esc>hp
-autocmd FileType tex inoremap <C-J> \textit{}<esc>i
-"HTML :
-autocmd FileType html vnoremap <C-B> di<lt>strong><lt>/strong><esc>9hp
-autocmd FileType html inoremap <C-B> <lt>strong><lt>/strong><esc>8hi
-autocmd FileType html vnoremap <C-J> di<lt>em><lt>/em><esc>5hp
-autocmd FileType html inoremap <C-J> <lt>em><lt>/em><esc>4hi
-
 ]])
 
 function Map(mode, lhs, rhs, opts)

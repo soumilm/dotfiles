@@ -130,6 +130,13 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   command = [[%s/\s\+$//e]]
 })
 
+vim.api.nvim_create_autocmd( {"BufRead", "BufNewFile"}, {
+  pattern = "*bashrc",
+  callback = function()
+    vim.bo.filetype = "bash"
+  end
+})
+
 vim.cmd([[
 " ----- Raimondi/delimitMate settings -----
 let delimitMate_expand_cr = 1
@@ -140,8 +147,6 @@ augroup mydelimitMate
   au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
   au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
 augroup END
-
-autocmd BufRead,BufNewFile *bashrc* set filetype=bash
 
 "Autocomplete HTML tags
 autocmd FileType html inoremap <C-N> <esc>:let@x=@"<CR>yypkI<<esc>A><esc>jI</<esc>A><esc>:let@"=@x<CR>ko

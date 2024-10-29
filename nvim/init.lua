@@ -158,22 +158,31 @@ FileTypeMap(
   [[<esc>:let@x=@"<CR>YpkI\begin{<esc>A}<esc>jI\end{<esc>A}<esc>:let@"=@x<CR>ko]]
 )
 
-vim.cmd([[
-" ----- Raimondi/delimitMate settings -----
-let delimitMate_expand_cr = 1
-augroup mydelimitMate
-  au!
-  au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
-  au FileType tex let b:delimitMate_quotes = ""
-  au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
-  au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
-augroup END
+---- Raimondi/delimitMate settings ----
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "tex",
+  callback = function()
+    vim.g.delimitMate_quotes = ""
+    vim.g.delimitMate_matchpairs = "(:),[:],{:},`:'"
+  end
+})
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.g.delimitMate_nesting_quotes = {"`"}
+  end
+})
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "python",
+  callback = function()
+    vim.g.delimitMate_nesting_quotes = {'"', "'"}
+  end
+})
 
-"Compile LaTeX on Ctrl+T
+-- Compile/run stuff on Ctrl+P
+vim.cmd([[
 autocmd FileType tex nmap <buffer> <C-P> :wa <bar> !latexmk -pdf %<CR>
-"Compile markdown on Ctrl+T
 autocmd FileType markdown nmap <buffer> <C-P> :wa <bar> !pandoc -s -o %:r.pdf %<CR>
-"Run python on Ctrl+T
 autocmd FileType python nmap <buffer> <C-P> :wa <bar> !python3 %<CR>
 ]])
 

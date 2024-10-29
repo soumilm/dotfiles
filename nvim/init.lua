@@ -44,10 +44,6 @@ autocmd FileType html inoremap <C-B> <lt>strong><lt>/strong><esc>8hi
 autocmd FileType html vnoremap <C-J> di<lt>em><lt>/em><esc>5hp
 autocmd FileType html inoremap <C-J> <lt>em><lt>/em><esc>4hi
 
-if system('uname -s') == "Darwin\n"
-  "OSX
-  source ~/dotfiles/.work_vimrc
-endif
 ]])
 
 function Map(mode, lhs, rhs, opts)
@@ -82,65 +78,7 @@ opt.scrolloff = 5
 opt.ignorecase = true
 opt.smartcase = true
 
-require('packer').startup(function(use)
-  use 'wbthomason/packer.nvim'
-
-  use 'Raimondi/delimitMate'               -- automatically close quotes, parens, etc
-  use 'SirVer/ultisnips'                   -- configurable tab-completed ultisnips
-  use 'airblade/vim-gitgutter'             -- show diff icons on the left
-  use 'christoomey/vim-tmux-navigator'     -- Ctrl+{h,j,k,l} navigates consistently across tmux and vim
-  use 'cocopon/iceberg.vim'                -- theme
-  use 'eslint/eslint'                      -- JS linter
-  use 'fatih/vim-go'                       -- golang miscellany
-  use 'google/vim-searchindex'             -- add count and index when searching
-  use 'honza/vim-snippets'                 -- adds snippets for UltiSnips
-  use 'jparise/vim-graphql'                -- GraphQL syntax
-  use 'leafgarland/typescript-vim'         -- TypeScript syntax
-  use 'mattesgroeger/vim-bookmarks'        -- bookmarks for lines
-  use 'maxmellon/vim-jsx-pretty'           -- JS and JSX syntax
-  use 'mhinz/vim-startify'                 -- fancy start screen for vim
-  use 'neovim/nvim-lspconfig'
-  use 'pangloss/vim-javascript'            -- JavaScript support
-  use 'sbdchd/neoformat'                   -- formatter
-  use 'simnalamburt/vim-mundo'
-  use 'tpope/vim-fugitive'                 -- git commands
-  use 'tpope/vim-vinegar'                  -- file navigation
-  use 'vim-python/python-syntax'           -- for f-strings
-  use 'yegappan/mru'                       -- see most recently used files
-
-  use { "ibhagwan/fzf-lua",
-    requires = { "nvim-tree/nvim-web-devicons" }, -- optional for icon support
-  }
-
-  use {
-    'dense-analysis/ale',
-    config = function()
-        local g = vim.g
-
-        g.ale_ruby_rubocop_auto_correct_all = 1
-        g.ale_linters = {
-            ruby = {'rubocop', 'ruby'},
-            lua = {'lua_language_server'},
-            python = {'pyright'},
-        }
-        g.ale_completion_enabled = 1
-      end
-  }
-
-  use {
-    'nvim-lualine/lualine.nvim',
-    requires = { 'nvim-tree/nvim-web-devicons', opt = true }
-  }
-end)
-
-require("fzf-lua").setup({
-  "fzf-vim",
-  files = {
-    git_icons = false,
-  },
-})
-
-require("lualine").setup()
+require("config.lazy")
 
 vim.cmd("hi clear SignColumn")
 opt.termguicolors = true
@@ -224,3 +162,19 @@ g.tex_flavor = "latex"
 Map('n', '<Space>', 'i<Space><Esc>r')
 -- Automatch Braces
 Map('i', '{<CR>', '{<CR>}<Esc>ko')
+
+function os.capture(cmd, raw)
+  local f = assert(io.popen(cmd, 'r'))
+  local s = assert(f:read('*a'))
+  f:close()
+  if raw then return s end
+  s = string.gsub(s, '^%s+', '')
+  s = string.gsub(s, '%s+$', '')
+  s = string.gsub(s, '[\n\r]+', ' ')
+  return s
+end
+
+-- Only on OSX
+if os.capture('uname -s') == "Darwin" then
+  vim.cmd("source ~/dotfiles/nvim/stripe.lua")
+end

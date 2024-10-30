@@ -14,29 +14,9 @@ return {
     end,
   },
   {
-    "dense-analysis/ale",                                 -- LSP
-    lazy = false,
-    config = function()
-      local g = vim.g
-
-      g.ale_ruby_rubocop_auto_correct_all = 1
-      g.ale_linters = {
-          ruby = {'rubocop', 'ruby'},
-          lua = {'lua_language_server'},
-          python = {'pyright'},
-      }
-      g.ale_completion_enabled = 1
-    end
-  },
-  {
-    "eslint/eslint",                                      -- JS linter
-    lazy = false,
-    ft = { "*.js", "*.ts" }
-  },
-  {
     "fatih/vim-go",                                       -- golang miscellany
     lazy = false,
-    ft = "*.go",
+    ft = "go",
   },
   { "google/vim-searchindex", lazy = false },             -- add count and index when searching
   { "honza/vim-snippets", lazy = false },                 -- adds snippets for UltiSnips
@@ -55,13 +35,12 @@ return {
   { "mattesgroeger/vim-bookmarks", lazy = false },        -- bookmarks for lines
   { "maxmellon/vim-jsx-pretty", lazy = false },           -- JS and JSX syntax
   { "mhinz/vim-startify", lazy = false },                 -- fancy start screen for vim
-  { "neovim/nvim-lspconfig", lazy = false },
+  { "neovim/nvim-lspconfig", lazy = false },              -- LSP
   {
     "nvim-lualine/lualine.nvim",                          -- status line
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {},
   },
-  { "pangloss/vim-javascript", lazy = false },            -- JavaScript support
   { "sbdchd/neoformat", lazy = false },                   -- formatter
   { "simnalamburt/vim-mundo", lazy = false },
   { "tpope/vim-fugitive", lazy = false },                 -- git commands

@@ -126,7 +126,6 @@ g.UltiSnipsJumpForwardTrigger = "<tab>"
 g.UltiSnipsJumpBackwardTrigger = "<S-tab>"
 g.UltiSnipsEditSplit = "vertical"
 
-Map('n', '+', ':ALEGoToDefinition<CR>')
 g.tex_flavor = "latex"
 
 -- Insert a single character from normal mode
@@ -202,3 +201,64 @@ FileTypeMap("python", "n", "<C-P>", ":wa <bar> !python %<CR>")
 if os.capture('uname -s') == "Darwin" then
   require("soumilm.stripe")
 end
+
+---- LSP ----
+local lspconfig = require('lspconfig')
+lspconfig.gopls.setup({})
+lspconfig.pyright.setup({})
+
+--  This function gets run when an LSP connects to a particular buffer.
+local autoformat_group = vim.api.nvim_create_augroup("LspAutoformat", { clear = true })
+vim.api.nvim_create_autocmd("LspAttach", {
+  desc = "Set custom keymaps and create autocmds",
+  pattern = "*",
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    -- helper function that lets us more easily define mappings
+    local nmap = function(keys, func, desc)
+      vim.keymap.set("n", keys, func, { buffer = args.buf, desc = "LSP: " .. desc })
+    end
+
+    nmap("<leader>r", vim.lsp.buf.rename, "[R]ename")
+    nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+    nmap("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
+    nmap("gi", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
+    nmap("gr", vim.lsp.buf.references, "[G]oto [R]eferences")
+    nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+    nmap("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
+    nmap("K", vim.lsp.buf.hover, "Hover Documentation")
+    nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
+    nmap("=", function()
+      vim.lsp.buf.format({
+        async = true,
+      })
+    end, "Format buffer")
+
+    -- Format on save
+    local autoformat_filetypes = {
+      "lua",
+      "python",
+      "ruby",
+    }
+    if
+      client.server_capabilities.documentFormattingProvider
+      and vim.tbl_contains(autoformat_filetypes, vim.bo[args.buf].filetype)
+    then
+      -- Remove prior autocmds so this only triggers once per buffer
+      vim.api.nvim_clear_autocmds({
+        group = autoformat_group,
+        buffer = args.buf,
+      })
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        desc = "Run LSP formatting",
+        group = autoformat_group,
+        buffer = args.buf,
+        callback = function()
+          vim.lsp.buf.format({
+            timeout_ms = 500,
+          })
+        end,
+      })
+    end
+  end,
+})

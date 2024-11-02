@@ -30,6 +30,18 @@ return {
   },
   {
     "hrsh7th/nvim-cmp",
+    dependencies = {
+      -- Autocompletion
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "onsails/lspkind.nvim",
+
+      -- Snippets
+      "L3MON4D3/LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
+      "rafamadriz/friendly-snippets",
+    },
     config = function()
       require("luasnip.loaders.from_vscode").lazy_load()
       local luasnip = require("luasnip")
@@ -83,6 +95,7 @@ return {
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "path" },
+          { name = "ultisnips" },
           { name = "buffer" },
         },
         completion = {
@@ -91,24 +104,12 @@ return {
         mapping = {
           ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
           ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-          ["<CR>"] = cmp.mapping(function()
+          ["<Tab>"] = cmp.mapping(function()
             cmp.confirm( {select=true} )
           end)
         },
       })
     end,
-    dependencies = {
-      -- Autocompletion
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "onsails/lspkind.nvim",
-
-      -- Snippets
-      "L3MON4D3/LuaSnip",
-      "saadparwaiz1/cmp_luasnip",
-      "rafamadriz/friendly-snippets",
-    },
   },
   { "jparise/vim-graphql" },                -- GraphQL syntax
   { "leafgarland/typescript-vim" },         -- TypeScript syntax

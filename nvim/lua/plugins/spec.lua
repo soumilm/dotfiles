@@ -2,7 +2,13 @@ return {
   -- Try to keep this list ASCIIbetized
 
   { "Raimondi/delimitMate" },               -- automatically close quotes, parens, etc
-  { "SirVer/ultisnips" },                   -- configurable tab-completed ultisnips
+  {
+    "SirVer/ultisnips",                     -- configurable tab-completed ultisnips
+    cmd = "UltiSnips",
+    ft = {
+      "html",
+    },
+  },
   { "airblade/vim-gitgutter" },             -- show diff icons on the left
   { "christoomey/vim-tmux-navigator" },     -- Ctrl+{h,j,k,l} navigates consistently across tmux and vim
   {

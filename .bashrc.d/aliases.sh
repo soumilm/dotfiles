@@ -30,7 +30,7 @@ alias gds='git num diff --staged'
 alias grst='git num restore'
 alias what='git num convert'
 function gv () {
-  vim "$(git num convert "$1")"
+  $EDITOR "$(git num convert "$1")"
 }
 function gst () {
   git num

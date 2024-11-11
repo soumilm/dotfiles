@@ -9,5 +9,4 @@ export TEXINPUTS=".:~/.latex:"
 export UNAME=$(uname)
 
 export EDITOR=nvim
-export GIT_EDITOR=nvim
-
+export GIT_EDITOR=$EDITOR

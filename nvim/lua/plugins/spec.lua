@@ -90,6 +90,16 @@ return {
         }),
       }
 
+      local confirm = function(fallback)
+        if cmp.visible() then
+          cmp.confirm({ select = true })
+        elseif luasnip.expandable() then
+          luasnip.expand()
+        else
+          fallback()
+        end
+      end
+
       cmp.setup({
         sources = {
           { name = "nvim_lsp" },
@@ -104,15 +114,8 @@ return {
         mapping = {
           ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
           ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-          ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.confirm({ select = true })
-            elseif luasnip.expandable() then
-              luasnip.expand()
-            else
-              fallback()
-            end
-          end)
+          ["<Tab>"] = cmp.mapping(confirm),
+          ["<CR>"] = cmp.mapping(confirm),
         },
       })
     end,

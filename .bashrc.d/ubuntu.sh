@@ -7,7 +7,10 @@ if [ -x /usr/bin/dircolors ]; then
     alias grep='grep --color=auto'
 fi
 
-source /usr/share/doc/fzf/examples/key-bindings.bash
+if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
+  source /usr/share/doc/fzf/examples/key-bindings.bash
+fi
+
 alias x='xdg-open'
 alias opendir='xdg-open .'
 alias pbcopy='xclip -selection clipboard'

@@ -11,8 +11,8 @@ if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
   source /usr/share/doc/fzf/examples/key-bindings.bash
 fi
 
-alias x='xdg-open'
-alias opendir='xdg-open .'
+export OPEN='xdg-open'
+alias x=$OPEN
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 export FORTUNES="/usr/share/games/fortunes"

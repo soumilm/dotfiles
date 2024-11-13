@@ -120,7 +120,6 @@ return {
         mapping = {
           ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
           ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-          ["<Tab>"] = cmp.mapping(confirm),
           ["<CR>"] = cmp.mapping(confirm),
         },
       })

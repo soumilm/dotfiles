@@ -202,6 +202,10 @@ if os.capture('uname -s') == "Darwin" then
   require("soumilm.stripe")
 end
 
+-- Grep
+opt.grepprg = "rg --vimgrep --no-heading --smart-case"
+opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
+
 ---- LSP ----
 local lspconfig = require('lspconfig')
 lspconfig.gopls.setup({})

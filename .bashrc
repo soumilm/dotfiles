@@ -1,9 +1,9 @@
 source $HOME/dotfiles/.bashrc.d/basics.sh
 
 # All my aliases and exports
-source $HOME/dotfiles/.bashrc.d/prompt.sh
-source $HOME/dotfiles/.bashrc.d/aliases.sh
 source $HOME/dotfiles/.bashrc.d/exports.sh
+source $HOME/dotfiles/.bashrc.d/aliases.sh
+source $HOME/dotfiles/.bashrc.d/prompt.sh
 
 case "$(uname -sr)" in
    Darwin*)

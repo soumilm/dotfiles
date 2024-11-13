@@ -15,10 +15,10 @@ alias units='units -v -1'
 
 alias :q='exit'
 
-alias vim='nvim'
+alias vim="$EDITOR"
 alias bashrc="$EDITOR ~/dotfiles/.bashrc"
 alias srcbash='source ~/.bashrc'
-alias dotfiles='cd ~/dotfiles'
+alias dotfiles="$EDITOR ~/dotfiles"
 
 function wisecow() {
 	fortune "$@" | cowsay -n -W -1

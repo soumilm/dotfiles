@@ -37,7 +37,6 @@ function refresh() {
 }
 
 function dualsign() {
-  set +x
   if [[ -z "$1" ]]; then
     echo "domain required as first arg"
     return

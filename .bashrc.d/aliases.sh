@@ -15,7 +15,9 @@ alias units='units -v -1'
 
 alias :q='exit'
 
-alias vim="$EDITOR"
+export EDITOR=nvim
+export GIT_EDITOR=$EDITOR
+
 alias bashrc="$EDITOR ~/dotfiles/.bashrc"
 alias srcbash='source ~/.bashrc'
 alias dotfiles="$EDITOR ~/dotfiles"

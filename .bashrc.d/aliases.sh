@@ -5,7 +5,9 @@ function up() {
 }
 
 alias python='python3'
-alias cat='bat'
+if command -v bat >/dev/null 2>&1; then
+  alias cat='bat'
+fi
 
 alias la='ls -A'
 alias clr='clear'

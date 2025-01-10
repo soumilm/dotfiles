@@ -173,18 +173,6 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {},
   },
-  {
-    'rmagatti/auto-session',                -- session management upon re-opening vim
-    lazy = false,
-
-    ---enables autocomplete for opts
-    ---@module "auto-session"
-    ---@type AutoSession.Config
-    opts = {
-      suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
-      -- log_level = 'debug',
-    }
-  },
   { "sbdchd/neoformat" },                   -- formatter
   { "simnalamburt/vim-mundo" },
   { "tpope/vim-fugitive" },                 -- git commands

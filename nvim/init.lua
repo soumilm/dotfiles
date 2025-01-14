@@ -139,8 +139,13 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 })
 
 vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "javascript",
-  command = ":EslintFixAll",
+  pattern = {
+    "*.js",
+    "*.jsx",
+    "*.ts",
+    "*.tsx",
+  },
+  command = 'EslintFixAll',
 })
 
 vim.api.nvim_create_autocmd( {"BufRead", "BufNewFile"}, {

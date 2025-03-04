@@ -18,6 +18,7 @@ return {
       vim.cmd([[colorscheme "iceberg"]])
     end,
   },
+  { "duane9/nvim-rg" },
   {
     "fatih/vim-go",                         -- golang miscellany
     ft = "go",
@@ -60,6 +61,7 @@ return {
     },
   },
   { "google/vim-searchindex" },             -- add count and index when searching
+  { "hashivim/vim-terraform" },
   { "honza/vim-snippets" },                 -- adds snippets for UltiSnips
   {
     "ibhagwan/fzf-lua",                     -- fuzzy file finder

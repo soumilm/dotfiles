@@ -1,6 +1,6 @@
 #!/dev/null
 
-if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+if command -v tmux &> /dev/null && [ -z "$TMUX" ] && [ -z "$box_name" ]; then
   tmux attach -t default || tmux new -s default
 fi
 

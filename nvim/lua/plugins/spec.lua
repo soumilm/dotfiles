@@ -60,18 +60,6 @@ return {
       },
     },
   },
-  { "github/copilot.vim" },
-  {
-    "CopilotC-Nvim/CopilotChat.nvim",
-    dependencies = {
-      { "github/copilot.vim" },
-      { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
-    },
-    build = "make tiktoken",
-    opts = {
-      -- See Configuration section for options
-    },
-  },
   { "google/vim-searchindex" },             -- add count and index when searching
   { "hashivim/vim-terraform" },
   { "honza/vim-snippets" },                 -- adds snippets for UltiSnips

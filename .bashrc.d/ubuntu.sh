@@ -23,3 +23,5 @@ function newfortune() {
   sudo chown soumilm $FORTUNES/$1*
   sudo chgrp soumilm $FORTUNES/$1*
 }
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

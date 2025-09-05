@@ -175,6 +175,11 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {},
   },
+  {
+    "nvim-telescope/telescope.nvim",
+    tag = '0.1.8',
+    dependencies = { 'nvim-lua/plenary.nvim' }
+  },
   { "sbdchd/neoformat" },                   -- formatter
   { "simnalamburt/vim-mundo" },
   { "tpope/vim-fugitive" },                 -- git commands

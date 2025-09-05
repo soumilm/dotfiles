@@ -23,7 +23,7 @@ export GIT_EDITOR=$EDITOR
 alias vim="$EDITOR"
 alias bashrc="$EDITOR ~/dotfiles/.bashrc"
 alias srcbash='source ~/.bashrc'
-alias dotfiles="$EDITOR ~/dotfiles"
+alias dotfiles="cd ~/dotfiles"
 
 function wisecow() {
 	fortune "$@" | cowsay -n -W -1

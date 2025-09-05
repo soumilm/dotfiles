@@ -12,5 +12,7 @@ function gitbranch() {
 }
 export PS1='$(printf "%s%s \n$ " "\[\e[38;5;198m\](\@)\[\e[0m\] \[\e[38;5;46m\]\h\[\e[0m\]:\[\e[38;5;33m\]\W\[\e[0m\]" "\[\e[38;5;198m\]$(gitbranch)\[\e[0m\]")'
 
-bind '"\e[1;5D" backward-word'
-bind '"\e[1;5C" forward-word'
+if [ -z "$CLAUDECODE" ]; then
+  bind '"\e[1;5D" backward-word'
+  bind '"\e[1;5C" forward-word'
+fi

@@ -16,6 +16,7 @@ alias x=$OPEN
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 export FORTUNES="/usr/share/games/fortunes"
+alias claude='npm i -g @anthropic-ai/claude-code; claude'
 
 function newfortune() {
   sudo touch $FORTUNES/$1

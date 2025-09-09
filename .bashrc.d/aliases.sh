@@ -20,7 +20,7 @@ alias :q='exit'
 export EDITOR=nvim
 export GIT_EDITOR=$EDITOR
 
-alias vim="$EDITOR"
+alias vim="$EDITOR --listen /tmp/nvim"
 alias bashrc="$EDITOR ~/dotfiles/.bashrc"
 alias srcbash='source ~/.bashrc'
 alias dotfiles="cd ~/dotfiles"

@@ -35,6 +35,8 @@ alias gd='git num diff'
 alias gds='git num diff --staged'
 alias grst='git num restore'
 alias what='git num convert'
+alias gcan='git commit --amend --no-edit'
+alias grim='git rebase -i master'
 function gv () {
   $EDITOR "$(git num convert "$1")"
 }

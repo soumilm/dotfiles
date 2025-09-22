@@ -217,14 +217,18 @@ opt.grepprg = "rg --vimgrep --no-heading --smart-case"
 opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
 
 ---- LSP ----
+local lspconfig = require('lspconfig')
+vim.lsp.config('gopls', {})
+vim.lsp.enable('gopls')
+vim.lsp.config('pyright', {})
+vim.lsp.enable('pyright')
+vim.lsp.config('ts_ls', {})
+vim.lsp.enable('ts_ls')
+
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-vim.lsp.config.gopls = {}
-vim.lsp.config.pyright = {}
-vim.lsp.config.ts_ls = {}
-
-vim.lsp.config.eslint = {
+vim.lsp.config('eslint', {
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
@@ -233,7 +237,8 @@ vim.lsp.config.eslint = {
             mode = "all"
         },
     }
-}
+})
+vim.lsp.enable('eslint')
 
 --  This function gets run when an LSP connects to a particular buffer.
 local autoformat_group = vim.api.nvim_create_augroup("LspAutoformat", { clear = true })

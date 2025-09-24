@@ -138,16 +138,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   command = [[%s/\s\+$//e]]
 })
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = {
-    "*.js",
-    "*.jsx",
-    "*.ts",
-    "*.tsx",
-  },
-  command = 'EslintFixAll',
-})
-
 vim.api.nvim_create_autocmd( {"BufRead", "BufNewFile"}, {
   pattern = "*bashrc",
   callback = function()
@@ -217,28 +207,37 @@ opt.grepprg = "rg --vimgrep --no-heading --smart-case"
 opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
 
 ---- LSP ----
-local lspconfig = require('lspconfig')
 vim.lsp.config('gopls', {})
-vim.lsp.enable('gopls')
 vim.lsp.config('pyright', {})
-vim.lsp.enable('pyright')
 vim.lsp.config('ts_ls', {})
-vim.lsp.enable('ts_ls')
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
+local base_on_attach = vim.lsp.config.eslint.on_attach
 vim.lsp.config('eslint', {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    settings = {
-        codeActionOnSave = {
-            enable = true,
-            mode = "all"
-        },
-    }
+  on_attach = function(client, bufnr)
+    if not base_on_attach then return end
+
+    base_on_attach(client, bufnr)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      command = "LspEslintFixAll",
+    })
+  end,
+  capabilities = capabilities,
+  settings = {
+    codeActionOnSave = {
+      enable = true,
+      mode = "all",
+    },
+  }
 })
+
 vim.lsp.enable('eslint')
+vim.lsp.enable('gopls')
+vim.lsp.enable('pyright')
+vim.lsp.enable('ts_ls')
 
 --  This function gets run when an LSP connects to a particular buffer.
 local autoformat_group = vim.api.nvim_create_augroup("LspAutoformat", { clear = true })

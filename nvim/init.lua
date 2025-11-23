@@ -98,8 +98,8 @@ opt.wildmode = 'longest:full,full'
 -- Splits
 opt.splitright = true
 opt.splitbelow = true
-Map('n', ',v', '<C-w>v')
-Map('n', ',h', '<C-w>s')
+Map('n', '<leader>v', '<C-w>v')
+Map('n', '<leader>h', '<C-w>s')
 
 g.startify_change_to_dir = 0
 g.startify_bookmarks = {

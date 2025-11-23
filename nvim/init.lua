@@ -197,11 +197,6 @@ FileTypeMap("tex", "n", "<C-P>", ":wa <bar> !latexmk -pdf %<CR>")
 FileTypeMap("markdown", "n", "<C-P>", ":wa <bar> !pandoc -s -o %:r.pdf %<CR>")
 FileTypeMap("python", "n", "<C-P>", ":wa <bar> !python %<CR>")
 
--- Only on OSX
-if os.capture('uname -s') == "Darwin" then
-  require("soumilm.stripe")
-end
-
 -- Grep
 opt.grepprg = "rg --vimgrep --no-heading --smart-case"
 opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"

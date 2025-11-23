@@ -2,7 +2,8 @@
 
 function up() {
     local d=""
-    for ((i=1; i<=$1; i++)); do
+    local count=${1:-1}
+    for ((i=1; i<=count; i++)); do
         d="../$d"
     done
     cd "$d"
@@ -27,7 +28,7 @@ export GIT_EDITOR=$EDITOR
 alias vim=$EDITOR
 alias viml="$EDITOR --listen /tmp/nvim"
 alias zshrc="$EDITOR ~/dotfiles/.zshrc"
-alias srczsh='source ~/.zshrc'
+alias src='source ~/.zshrc'
 alias dotfiles="cd ~/dotfiles"
 
 function wisecow() {

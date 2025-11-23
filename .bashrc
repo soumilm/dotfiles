@@ -7,7 +7,7 @@ source $HOME/dotfiles/.bashrc.d/prompt.sh
 
 case "$(uname -sr)" in
    Darwin*)
-     source $HOME/dotfiles/.bashrc.d/work.sh # this file intentionally not checked in
+     # source $HOME/dotfiles/.bashrc.d/work.sh # this file intentionally not checked in
      source $HOME/dotfiles/.bashrc.d/macos.sh
      ;;
 

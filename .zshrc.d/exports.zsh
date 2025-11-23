@@ -1,11 +1,13 @@
 #! /dev/null
 
-export PATH=~/.bash:$PATH
+export PATH=~/.zsh:$PATH
 export PATH=/usr/games:$PATH
 export PATH=/usr/local/go/bin:$PATH
 export PATH=/usr/local/bin:$PATH
 
-export PROMPT_COMMAND='history -a'
+precmd() {
+    fc -W  # Write history to file after each command
+}
 
 export TEXINPUTS=".:~/.latex:"
 

@@ -11,3 +11,7 @@ if type brew &>/dev/null; then
 fi
 
 alias ls='ls -G'
+
+# Option + Left/Right arrow keys for word navigation
+bindkey "^[f" forward-word          # Option + Right
+bindkey "^[b" backward-word         # Option + Left

@@ -1,5 +1,9 @@
 #!/dev/null
 
+# Make completion - only show Makefile targets, not files/directories
+zstyle ':completion:*:*:make:*' tag-order 'targets'
+zstyle ':completion:*:*:make:*:targets' call-command true
+
 function reattach-tmux () {
   if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
     tmux attach -t default || tmux new -s default

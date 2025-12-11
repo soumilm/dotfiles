@@ -4,6 +4,8 @@
 zstyle ':completion:*:*:make:*' tag-order 'targets'
 zstyle ':completion:*:*:make:*:targets' call-command true
 
+bindkey "^?" backward-delete-char
+
 function reattach-tmux () {
   if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
     tmux attach -t default || tmux new -s default

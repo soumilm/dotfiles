@@ -201,6 +201,24 @@ FileTypeMap("python", "n", "<C-P>", ":wa <bar> !python %<CR>")
 opt.grepprg = "rg --vimgrep --no-heading --smart-case"
 opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
 
+vim.api.nvim_create_user_command("Git", function(opts)
+  vim.cmd("FzfLua git_" .. opts.args)
+end, {
+  nargs = 1,
+  complete = function()
+    local fzf = require("fzf-lua")
+    local completions = {}
+    for key, val in pairs(fzf) do
+      if type(val) == "function" and key:match("^git_") then
+        table.insert(completions, key:sub(5)) -- strip "git_" prefix
+      end
+    end
+    table.sort(completions)
+    return completions
+  end,
+})
+vim.api.nvim_create_user_command("GST", "FzfLua git_status", {})
+
 ---- LSP ----
 vim.lsp.config('gopls', {})
 vim.lsp.config('pyright', {})

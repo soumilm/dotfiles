@@ -120,6 +120,10 @@ Map('', 'gP', 'P')
 -- Use system clipboard
 opt.clipboard = 'unnamedplus'
 Map('n', '<leader>p', 'p`[v`]=')
+-- Yank filename to clipboard
+Map('n', 'yf', function()
+  vim.fn.setreg('+', vim.fn.expand('%'))
+end)
 
 g.UltiSnipsExpandTrigger = "<tab>"
 g.UltiSnipsJumpForwardTrigger = "<tab>"

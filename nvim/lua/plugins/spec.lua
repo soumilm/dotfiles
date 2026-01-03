@@ -184,6 +184,44 @@ return {
     },
     config = function()
       local telescope = require("telescope")
+
+      -- Transform "82 file:foo file:bar" -> "82" -g "*foo*" ... -g "*bar*" ...
+      -- Also: "foo bar" -> "foo.*bar" (spaces become .* unless quoted)
+      local function transform_file_pattern(prompt)
+        -- Collect all file: patterns
+        local globs = {}
+        for pattern in prompt:gmatch("file:(%S+)") do
+          table.insert(globs, string.format('-g "*%s*"', pattern))
+          table.insert(globs, string.format('-g "*%s*/**"', pattern))
+          table.insert(globs, string.format('-g "**/*%s*/**"', pattern))
+        end
+
+        -- Remove all file:xxx from prompt and trim
+        local search_part = prompt:gsub("file:%S+", ""):match("^%s*(.-)%s*$")
+
+        -- If not already quoted, replace spaces with .* and quote
+        if search_part ~= "" and not search_part:match('^"') and not search_part:match("^-") then
+          search_part = '"' .. search_part:gsub("%s+", ".*") .. '"'
+        end
+
+        if #globs == 0 then
+          return search_part
+        end
+
+        return search_part .. " " .. table.concat(globs, " ")
+      end
+
+      telescope.setup({
+        extensions = {
+          live_grep_args = {
+            auto_quoting = true,
+            on_input_filter_cb = function(prompt)
+              return { prompt = transform_file_pattern(prompt) }
+            end,
+          },
+        },
+      })
+
       telescope.load_extension("live_grep_args")
       vim.keymap.set("n", "lg", telescope.extensions.live_grep_args.live_grep_args)
     end,

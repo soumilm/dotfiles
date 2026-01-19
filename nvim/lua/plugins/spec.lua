@@ -223,7 +223,7 @@ return {
       })
 
       telescope.load_extension("live_grep_args")
-      vim.keymap.set("n", "lg", telescope.extensions.live_grep_args.live_grep_args)
+      vim.keymap.set("n", "<leader>g", telescope.extensions.live_grep_args.live_grep_args)
     end,
   },
   { "sbdchd/neoformat" },                   -- formatter

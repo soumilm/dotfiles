@@ -37,7 +37,9 @@ function wisecow() {
 
 alias ga='git num add'
 alias gd='git num diff'
+alias gdw='git num diff -w'
 alias gds='git num diff --staged'
+alias gdsw='git num diff --staged -w'
 alias grst='git num restore'
 alias what='git num convert'
 alias gcan='git commit --amend --no-edit'

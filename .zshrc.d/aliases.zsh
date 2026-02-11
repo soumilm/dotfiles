@@ -45,6 +45,7 @@ alias what='git num convert'
 alias gcan='git commit --amend --no-edit'
 alias gpf='git push -f'
 alias grim='git rebase -i master'
+alias stash='git num stash push'
 function gv () {
   $EDITOR "$(git num convert "$1")"
 }
@@ -54,5 +55,29 @@ function gst () {
 
 alias commits='git log --oneline | head'
 alias hash='git rev-parse HEAD'
+
+function merged() {
+  case "$1" in
+    ""|delete) ;;
+    *)
+      echo "Usage: merged [delete]"
+      return 1
+      ;;
+  esac
+  git fetch -p >/dev/null 2>&1
+  local branches=$(git branch -vv | grep ": gone]" | awk '{if ($1 == "*") print $2; else print $1}')
+  if [[ -z "$branches" ]]; then
+    echo "No branches with gone remotes."
+    return 0
+  fi
+  case "$1" in
+    "")
+      echo "$branches"
+      ;;
+    delete)
+      echo "$branches" | xargs git branch -D
+      ;;
+  esac
+}
 
 alias sl='ls'

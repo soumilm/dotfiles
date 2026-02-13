@@ -227,6 +227,9 @@ vim.api.nvim_create_user_command("GST", "FzfLua git_status", {})
 vim.lsp.config('gopls', {})
 vim.lsp.config('pyright', {})
 vim.lsp.config('ts_ls', {})
+if vim.fn.executable('sourcekit-lsp') == 1 then
+  vim.lsp.config('sourcekit', {})
+end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
@@ -254,6 +257,9 @@ vim.lsp.config('eslint', {
 vim.lsp.enable('eslint')
 vim.lsp.enable('gopls')
 vim.lsp.enable('pyright')
+if vim.fn.executable('sourcekit-lsp') == 1 then
+  vim.lsp.enable('sourcekit')
+end
 vim.lsp.enable('ts_ls')
 
 --  This function gets run when an LSP connects to a particular buffer.

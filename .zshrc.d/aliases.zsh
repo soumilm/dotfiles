@@ -75,7 +75,10 @@ function merged() {
       echo "$branches"
       ;;
     delete)
+      git checkout main 2>/dev/null || git checkout master
+      git pull >/dev/null 2>&1 &
       echo "$branches" | xargs git branch -D
+      wait
       ;;
   esac
 }

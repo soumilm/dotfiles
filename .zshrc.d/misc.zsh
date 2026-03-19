@@ -8,6 +8,7 @@ bindkey "^?" backward-delete-char
 
 function reattach-tmux () {
   if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+    clear
     tmux-pick
   fi
 }

@@ -20,40 +20,44 @@ func main() {
 		os.Exit(1)
 	}
 
-	var selected string
-
-	var opts []huh.Option[string]
-	for _, s := range sessions {
-		name := strings.SplitN(s, ":", 2)[0]
-		opts = append(opts, huh.NewOption(s, name))
-	}
-	opts = append(opts, huh.NewOption("+ New session", newSessionValue))
-
-	km := huh.NewDefaultKeyMap()
-	km.Quit = key.NewBinding(key.WithKeys("ctrl+c", "esc"))
-	km.Select.Next = key.NewBinding(key.WithKeys("enter", " "), key.WithHelp("enter/space", "select"))
-	km.Select.Submit = key.NewBinding(key.WithKeys("enter", " "), key.WithHelp("enter/space", "submit"))
-
-	err = huh.NewForm(
-		huh.NewGroup(
-			huh.NewSelect[string]().
-				Title("Pick a tmux session").
-				Options(opts...).
-				Value(&selected),
-		),
-	).WithKeyMap(km).Run()
-	if err != nil {
-		if err.Error() == "user aborted" {
-			os.Exit(0)
-		}
-		fmt.Fprintf(os.Stderr, "error: %v\n", err)
-		os.Exit(1)
-	}
-
 	tmuxPath, err := exec.LookPath("tmux")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "tmux not found: %v\n", err)
 		os.Exit(1)
+	}
+
+	var selected string
+
+	if len(sessions) == 0 {
+		selected = newSessionValue
+	} else {
+		var opts []huh.Option[string]
+		for _, s := range sessions {
+			name := strings.SplitN(s, ":", 2)[0]
+			opts = append(opts, huh.NewOption(s, name))
+		}
+		opts = append(opts, huh.NewOption("+ New session", newSessionValue))
+
+		km := huh.NewDefaultKeyMap()
+		km.Quit = key.NewBinding(key.WithKeys("ctrl+c", "esc"))
+		km.Select.Next = key.NewBinding(key.WithKeys("enter", " "), key.WithHelp("enter/space", "select"))
+		km.Select.Submit = key.NewBinding(key.WithKeys("enter", " "), key.WithHelp("enter/space", "submit"))
+
+		err = huh.NewForm(
+			huh.NewGroup(
+				huh.NewSelect[string]().
+					Title("Pick a tmux session").
+					Options(opts...).
+					Value(&selected),
+			),
+		).WithKeyMap(km).Run()
+		if err != nil {
+			if err.Error() == "user aborted" {
+				os.Exit(0)
+			}
+			fmt.Fprintf(os.Stderr, "error: %v\n", err)
+			os.Exit(1)
+		}
 	}
 
 	if selected == newSessionValue {
@@ -92,6 +96,10 @@ func main() {
 func tmuxSessions() ([]string, error) {
 	out, err := exec.Command("tmux", "ls").Output()
 	if err != nil {
+		// tmux ls exits non-zero when there are no sessions
+		if exitErr, ok := err.(*exec.ExitError); ok && exitErr.ExitCode() == 1 {
+			return nil, nil
+		}
 		return nil, err
 	}
 

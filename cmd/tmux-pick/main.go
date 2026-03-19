@@ -30,6 +30,7 @@ func main() {
 	opts = append(opts, huh.NewOption("+ New session", newSessionValue))
 
 	km := huh.NewDefaultKeyMap()
+	km.Quit = key.NewBinding(key.WithKeys("ctrl+c", "esc"))
 	km.Select.Next = key.NewBinding(key.WithKeys("enter", " "), key.WithHelp("enter/space", "select"))
 	km.Select.Submit = key.NewBinding(key.WithKeys("enter", " "), key.WithHelp("enter/space", "submit"))
 

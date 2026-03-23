@@ -22,5 +22,3 @@ esac
 
 source $HOME/dotfiles/.zshrc.d/misc.zsh
 
-# Added by Antigravity
-export PATH="/Users/gaus/.antigravity/antigravity/bin:$PATH"

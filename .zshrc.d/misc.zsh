@@ -21,8 +21,8 @@ function print-wisecow () {
 }
 
 if [ "$TERM_PROGRAM" != "vscode" ] && [ -z "$CLAUDECODE" ]; then
-  reattach-tmux
   print-wisecow
+  reattach-tmux
 fi
 
 source <(fzf --zsh)

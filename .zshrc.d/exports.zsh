@@ -8,6 +8,7 @@ export PATH=/usr/local/go/bin:$PATH
 export PATH=$GOPATH/bin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=$HOME/dotfiles/bin:$PATH
+export PATH="$HOME/.local/bin:$PATH"
 
 precmd() {
     fc -W  # Write history to file after each command

@@ -22,3 +22,6 @@ esac
 
 source $HOME/dotfiles/.zshrc.d/misc.zsh
 
+fpath+=~/.zfunc; autoload -Uz compinit; compinit
+
+zstyle ':completion:*' menu select

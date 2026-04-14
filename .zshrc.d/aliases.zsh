@@ -57,30 +57,30 @@ alias commits='git log --oneline | head'
 alias hash='git rev-parse HEAD'
 
 function merged() {
-  case "$1" in
-    ""|delete) ;;
-    *)
-      echo "Usage: merged [delete]"
-      return 1
-      ;;
-  esac
   git fetch -p >/dev/null 2>&1
   local branches=$(git branch -vv | grep ": gone]" | awk '{if ($1 == "*") print $2; else print $1}')
   if [[ -z "$branches" ]]; then
     echo "No branches with gone remotes."
     return 0
   fi
-  case "$1" in
-    "")
-      echo "$branches"
-      ;;
-    delete)
-      git checkout main 2>/dev/null || git checkout master
-      git pull >/dev/null 2>&1 &
-      echo "$branches" | xargs git branch -D
-      wait
-      ;;
-  esac
+  echo "$branches"
+}
+
+function md() {
+  merged-delete "$@"
+}
+
+function merged-delete() {
+  git fetch -p >/dev/null 2>&1
+  local branches=$(git branch -vv | grep ": gone]" | awk '{if ($1 == "*") print $2; else print $1}')
+  if [[ -z "$branches" ]]; then
+    echo "No branches with gone remotes."
+    return 0
+  fi
+  git checkout main 2>/dev/null || git checkout master
+  git pull >/dev/null 2>&1 &
+  echo "$branches" | xargs git branch -D
+  wait
 }
 
 alias sl='ls'

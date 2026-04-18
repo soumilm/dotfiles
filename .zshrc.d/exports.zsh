@@ -10,6 +10,9 @@ export PATH=/usr/local/bin:$PATH
 export PATH=$HOME/dotfiles/bin:$PATH
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/Library/Python/3.9/bin:$PATH"
+# Added by flyctl installer
+export FLYCTL_INSTALL="/home/soumilm/.fly"
+export PATH="$FLYCTL_INSTALL/bin:$PATH"
 
 precmd() {
     fc -W  # Write history to file after each command

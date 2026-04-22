@@ -43,6 +43,7 @@ alias gdsw='git num diff --staged -w'
 alias grst='git num restore'
 alias what='git num convert'
 alias gcan='git commit --amend --no-edit'
+alias gca='git commit --amend'
 alias gpf='git push -f'
 alias grim='git rebase -i master'
 alias stash='git num stash push'
@@ -58,7 +59,7 @@ alias hash='git rev-parse HEAD'
 
 function merged() {
   git fetch -p >/dev/null 2>&1
-  local branches=$(git branch -vv | grep ": gone]" | awk '{if ($1 == "*") print $2; else print $1}')
+  local branches=$(git branch -vv | grep ": gone]" | awk '{if ($1 == "*" || $1 == "+") print $2; else print $1}')
   if [[ -z "$branches" ]]; then
     echo "No branches with gone remotes."
     return 0
@@ -72,7 +73,7 @@ function md() {
 
 function merged-delete() {
   git fetch -p >/dev/null 2>&1
-  local branches=$(git branch -vv | grep ": gone]" | awk '{if ($1 == "*") print $2; else print $1}')
+  local branches=$(git branch -vv | grep ": gone]" | awk '$1 != "+" {if ($1 == "*") print $2; else print $1}')
   if [[ -z "$branches" ]]; then
     echo "No branches with gone remotes."
     return 0

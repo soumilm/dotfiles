@@ -13,6 +13,7 @@ export PATH="$HOME/Library/Python/3.9/bin:$PATH"
 # Added by flyctl installer
 export FLYCTL_INSTALL="/home/soumilm/.fly"
 export PATH="$FLYCTL_INSTALL/bin:$PATH"
+[ -d "$HOME/gaus/bin" ] && export PATH="$HOME/gaus/bin:$PATH"
 
 precmd() {
     fc -W  # Write history to file after each command

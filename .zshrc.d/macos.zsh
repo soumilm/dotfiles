@@ -15,3 +15,5 @@ alias ls='ls -G'
 # Option + Left/Right arrow keys for word navigation
 bindkey "^[f" forward-word          # Option + Right
 bindkey "^[b" backward-word         # Option + Left
+bindkey "^[^?" backward-kill-word   # Option + Backspace
+bindkey "^[d" kill-word             # Option + Delete (forward)

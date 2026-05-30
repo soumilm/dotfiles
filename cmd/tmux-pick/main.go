@@ -26,38 +26,39 @@ func main() {
 		os.Exit(1)
 	}
 
+	if len(sessions) == 0 {
+		syscall.Exec(tmuxPath, []string{"tmux", "new-session", "-s", "default"}, os.Environ())
+		return
+	}
+
 	var selected string
 
-	if len(sessions) == 0 {
-		selected = newSessionValue
-	} else {
-		var opts []huh.Option[string]
-		for _, s := range sessions {
-			name := strings.SplitN(s, ":", 2)[0]
-			opts = append(opts, huh.NewOption(s, name))
-		}
-		opts = append(opts, huh.NewOption("+ New session", newSessionValue))
+	var opts []huh.Option[string]
+	for _, s := range sessions {
+		name := strings.SplitN(s, ":", 2)[0]
+		opts = append(opts, huh.NewOption(s, name))
+	}
+	opts = append(opts, huh.NewOption("+ New session", newSessionValue))
 
-		km := huh.NewDefaultKeyMap()
-		km.Quit = key.NewBinding(key.WithKeys("ctrl+c", "esc"))
-		km.Select.Next = key.NewBinding(key.WithKeys("enter", " "), key.WithHelp("enter/space", "select"))
-		km.Select.Submit = key.NewBinding(key.WithKeys("enter", " "), key.WithHelp("enter/space", "submit"))
+	km := huh.NewDefaultKeyMap()
+	km.Quit = key.NewBinding(key.WithKeys("ctrl+c", "esc"))
+	km.Select.Next = key.NewBinding(key.WithKeys("enter", " "), key.WithHelp("enter/space", "select"))
+	km.Select.Submit = key.NewBinding(key.WithKeys("enter", " "), key.WithHelp("enter/space", "submit"))
 
-		err = huh.NewForm(
-			huh.NewGroup(
-				huh.NewSelect[string]().
-					Title("Pick a tmux session").
-					Options(opts...).
-					Value(&selected),
-			),
-		).WithKeyMap(km).Run()
-		if err != nil {
-			if err.Error() == "user aborted" {
-				os.Exit(0)
-			}
-			fmt.Fprintf(os.Stderr, "error: %v\n", err)
-			os.Exit(1)
+	err = huh.NewForm(
+		huh.NewGroup(
+			huh.NewSelect[string]().
+				Title("Pick a tmux session").
+				Options(opts...).
+				Value(&selected),
+		),
+	).WithKeyMap(km).Run()
+	if err != nil {
+		if err.Error() == "user aborted" {
+			os.Exit(0)
 		}
+		fmt.Fprintf(os.Stderr, "error: %v\n", err)
+		os.Exit(1)
 	}
 
 	if selected == newSessionValue {

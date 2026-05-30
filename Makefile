@@ -1,12 +1,14 @@
 CMDS := $(notdir $(wildcard cmd/*))
-BINS := $(addprefix bin/,$(CMDS))
+LINKS := $(addprefix bin/,$(CMDS))
 
-.PHONY: all clean
+.PHONY: links clean
 
-all: $(BINS)
+# Ensure bin/<name> -> _go-run symlinks exist for every cmd/<name>.
+# Binaries are built on demand by bin/_go-run into a cache dir, not here.
+links: $(LINKS)
 
-bin/%: cmd/%/*.go go.mod
-	go build -o $@ ./cmd/$*
+bin/%:
+	ln -sf _go-run $@
 
 clean:
-	rm -f $(BINS)
+	rm -rf $${XDG_CACHE_HOME:-$$HOME/.cache}/dotfiles-go

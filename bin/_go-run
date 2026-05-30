@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# Generic launcher for Go-based scripts in this repo.
+# Looks for source at <repo>/cmd/<basename-of-invocation>/, builds it into a
+# cache dir if any source file is newer than the cached binary, then exec's it.
+# Symlink bin/<name> -> _go-run to add a new script.
+
+set -euo pipefail
+
+name="$(basename "$0")"
+bin_dir="$(cd "$(dirname "$0")" && pwd)"
+repo_dir="$(cd "$bin_dir/.." && pwd)"
+src_dir="$repo_dir/cmd/$name"
+
+if [[ ! -d "$src_dir" ]]; then
+  echo "_go-run: no source dir at $src_dir" >&2
+  exit 1
+fi
+
+cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/dotfiles-go"
+binary="$cache_dir/$name"
+mkdir -p "$cache_dir"
+
+needs_build=0
+if [[ ! -x "$binary" ]]; then
+  needs_build=1
+else
+  while IFS= read -r -d '' f; do
+    if [[ "$f" -nt "$binary" ]]; then
+      needs_build=1
+      break
+    fi
+  done < <({
+    find "$src_dir" -type f -name '*.go' -print0
+    find "$repo_dir" -maxdepth 1 -type f \( -name 'go.mod' -o -name 'go.sum' \) -print0
+  })
+fi
+
+if (( needs_build )); then
+  (cd "$repo_dir" && go build -o "$binary" "./cmd/$name") >&2
+fi
+
+exec "$binary" "$@"

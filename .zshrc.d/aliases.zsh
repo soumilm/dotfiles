@@ -51,6 +51,9 @@ alias stash='git num stash push'
 function gv () {
   $EDITOR "$(git num convert "$1")"
 }
+function gcat () {
+  cat "$(git num convert "$1")"
+}
 function gst () {
   git num
 }

@@ -1,6 +1,65 @@
 return {
   -- Try to keep this list ASCIIbetized
 
+  {
+    "MeanderingProgrammer/render-markdown.nvim",  -- pretty in-buffer markdown rendering
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
+    },
+    ft = { "markdown" },
+    opts = {
+      heading = {
+        -- Show the literal '#', '##', ... instead of the default circled icons.
+        icons = { "# ", "## ", "### ", "#### ", "##### ", "###### " },
+        -- No background bar; the heading text itself carries the color (+ bold).
+        backgrounds = {},
+        -- One distinct color per level, borrowed from existing theme groups (so
+        -- it adapts to the colorscheme instead of hardcoding hex). Colors the
+        -- icon here; the config function reuses this list to color the text.
+        foregrounds = { "Title", "Function", "String", "Constant", "Special", "DiagnosticError" },
+      },
+    },
+    config = function(_, opts)
+      require("render-markdown").setup(opts)
+
+      -- Style bold text and headings. Bold text (@markup.strong) just gets a
+      -- bold weight. Each heading level gets a bold weight plus a distinct
+      -- color taken from opts.heading.foregrounds[level] (an existing theme
+      -- group), so heading text is colored per level without hardcoding hex.
+      local palette = opts.heading.foregrounds
+      local function bold_markdown()
+        local strong = vim.api.nvim_get_hl(0, { name = "@markup.strong", link = false })
+        if next(strong) ~= nil then
+          strong.bold = true
+          vim.api.nvim_set_hl(0, "@markup.strong", strong)
+        end
+        for i = 1, 6 do
+          local color = vim.api.nvim_get_hl(0, { name = palette[i], link = false })
+          for _, group in ipairs({ "@markup.heading." .. i .. ".markdown", "markdownH" .. i }) do
+            local hl = vim.api.nvim_get_hl(0, { name = group, link = false })
+            if next(hl) ~= nil then
+              hl.bold = true
+              if color.fg then hl.fg = color.fg end
+              vim.api.nvim_set_hl(0, group, hl)
+            end
+          end
+        end
+      end
+      -- These groups only exist once a markdown buffer loads, so (re)apply on
+      -- FileType and after any colorscheme change.
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "markdown",
+        callback = function() vim.schedule(bold_markdown) end,
+      })
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        callback = function() vim.schedule(bold_markdown) end,
+      })
+    end,
+    keys = {
+      { "<leader>m", "<cmd>RenderMarkdown toggle<cr>", ft = "markdown", desc = "Toggle Markdown rendering" },
+    },
+  },
   { "Raimondi/delimitMate" },               -- automatically close quotes, parens, etc
   {
     "SirVer/ultisnips",                     -- configurable tab-completed ultisnips
@@ -224,6 +283,27 @@ return {
 
       telescope.load_extension("live_grep_args")
       vim.keymap.set("n", "<leader>g", telescope.extensions.live_grep_args.live_grep_args)
+    end,
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",      -- parsers (needed for markdown rendering)
+    branch = "master",
+    build = ":TSUpdate",
+    opts = {
+      ensure_installed = { "markdown", "markdown_inline" },
+      highlight = {
+        -- Only treesitter-highlight markdown; every other filetype keeps its
+        -- existing vim syntax / dedicated plugin. render-markdown needs
+        -- treesitter highlighting active to align tables whose cells contain
+        -- concealed markup (e.g. **bold**), and to expose the @markup.* groups.
+        enable = true,
+        disable = function(lang)
+          return lang ~= "markdown" and lang ~= "markdown_inline"
+        end,
+      },
+    },
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
     end,
   },
   { "sbdchd/neoformat" },                   -- formatter

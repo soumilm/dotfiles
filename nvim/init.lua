@@ -52,6 +52,8 @@ opt.smartcase = true
 
 require("config.lazy")
 
+require("jq").setup()
+
 vim.cmd("hi clear SignColumn")
 opt.termguicolors = true
 opt.background = "dark"

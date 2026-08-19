@@ -13,6 +13,7 @@ alias python='python3'
 if command -v bat >/dev/null 2>&1; then
   alias cat='bat'
 fi
+alias cursor='agent'
 
 alias la='ls -A'
 alias clr='clear'
@@ -89,3 +90,5 @@ function merged-delete() {
 }
 
 alias sl='ls'
+
+alias miniclaude='claude --model sonnet'
